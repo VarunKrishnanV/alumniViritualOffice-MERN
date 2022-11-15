@@ -76,7 +76,7 @@ function App() {
             <table>
                 {allDiscussions.map((discussion) => {
                     return (
-                        <tr>
+                        <tr key={discussion._id}>
                             <td>{discussion.dis_title}</td>
                             <td>{discussion.dis_description}</td>
                             <td>{discussion.dis_likes}</td>
