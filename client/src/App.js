@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
+
 function App() {
     // default values of input fields
     const [form, setForm] = useState({
@@ -72,7 +73,6 @@ function App() {
                     Create Discussion
                 </button>
             </form>
-
             <table>
                 {allDiscussions.map((discussion) => {
                     return (
