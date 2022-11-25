@@ -1,7 +1,10 @@
 import React from "react";
 import "./ContentBox.css";
+import { useEffect, useState } from "react"
+import DiscussionsAll from "../Discussions/DiscussionsAll";
 
 function ContentBox() {
+
     return (
         <>
             <div className="w-10/12 bg-gray-100">
@@ -27,6 +30,8 @@ function ContentBox() {
                         </div>
                     </div>
                 </div>
+
+                <DiscussionsAll />
             </div>
         </>
     );
