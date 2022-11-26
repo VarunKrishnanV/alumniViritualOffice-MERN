@@ -1,7 +1,7 @@
+import "./App.css";
+
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -10,13 +10,14 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-
+import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link as AppRouter, useNavigate } from "react-router-dom";
-import "./App.css";
+import { Link, useNavigate } from "react-router-dom";
 
+
+// icons
 import iconHome from "./assets/icons/iconHome.svg";
 import iconUser from "./assets/icons/iconUser.svg";
 import iconAllUsers from "./assets/icons/iconAllUsers.svg";
@@ -26,15 +27,17 @@ import iconLogout from "./assets/icons/iconLogout.svg";
 import appLogo from "./assets/images/logo.svg"
 
 import Cookies from "js-cookie"
+import { useDispatch } from "react-redux"
+import { logout } from "./store/auth.js"
 
-// components
-// import Sidebar from "./components/Sidebar";
+
 import { Outlet } from 'react-router-dom'
 
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -45,8 +48,9 @@ function Dashboard(props) {
         setMobileOpen(!mobileOpen);
     };
 
-    function logout() {
+    function _logout() {
         Cookies.remove("token")
+        dispatch(logout())
         navigate("/login")
     }
 
@@ -67,25 +71,26 @@ function Dashboard(props) {
             <Divider />
             <List>
                 {
-                    navItems.map((navItem) => {
+                    navItems.map((hello) => {
                         return (
-                            <AppRouter to={navItem.route} key={navItem.key}>
-                                <ListItem key={navItem.key} disablePadding>
+                            <Link to={hello.route} key={hello.key}>
+                                <ListItem key={hello.key} disablePadding>
                                     <ListItemButton>
-                                        <img style={{ marginRight: "20px" }} src={navItem.icon} />
-                                        <ListItemText primary={navItem.label} />
+                                        <img style={{ marginRight: "20px" }} src={hello.icon} />
+                                        <ListItemText primary={hello.label} />
                                     </ListItemButton>
                                 </ListItem>
-                            </AppRouter>
+                            </Link>
                         )
                     })
                 }
                 <ListItem key="logout" disablePadding>
-                    <ListItemButton onClick={logout}>
+                    <ListItemButton onClick={_logout}>
                         <img style={{ marginRight: "20px" }} src={iconLogout} />
                         <ListItemText primary="Logout" />
                     </ListItemButton>
                 </ListItem>
+
             </List>
         </ >
     );
@@ -101,7 +106,7 @@ function Dashboard(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Responsive drawer
+                        Alumni Virutal Office
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -126,7 +131,7 @@ function Dashboard(props) {
                     {drawer}
                 </Drawer>
             </Box>
-            <Box component="main" sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }} >
+            <Box style={{ marginTop: "70px" }} component="main" sx={{ marginTop: "60px", flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }} >
                 <Outlet />
             </Box>
         </Box>

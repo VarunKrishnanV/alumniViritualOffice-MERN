@@ -42,7 +42,6 @@ function DiscussionForm({ setAllDiscussions }) {
     // handle submit
     async function handleSubmit(e) {
         const token = Cookies.get("token")
-        console.log('token: ', token);
 
         e.preventDefault();
         const res = await fetch(`${import.meta.env.VITE_API_URL}/discussion`, {
@@ -69,8 +68,6 @@ function DiscussionForm({ setAllDiscussions }) {
                 Create new Discussion
             </h1>
             <form>
-
-
                 <TextField
                     fullWidth
                     label="Discussion title"
@@ -87,6 +84,7 @@ function DiscussionForm({ setAllDiscussions }) {
                     id="outlined-textarea"
                     label="Description"
                     multiline
+                    rows={4}
                     onChange={handleInput}
                     placeholder="Discussion description"
                     name="dis_description"
@@ -95,11 +93,13 @@ function DiscussionForm({ setAllDiscussions }) {
 
                 <input onChange={handleInput} type="text" value={form.dis_likes} name="dis_likes" hidden />
 
-                <Button variant="contained" onClick={handleSubmit} type="submit" sx={{ marginTop: "10px", textTransform: "capitalize", backgroundColor: "#A12137", }} >
+                <Button variant="contained" onClick={handleSubmit} type="submit" sx={{
+                    marginTop: "10px", textTransform: "capitalize", backgroundColor: "#A12137",
+                }} >
                     Create Discussion
                 </Button>
             </form>
-        </div>
+        </div >
     );
 }
 

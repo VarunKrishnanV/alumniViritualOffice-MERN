@@ -1,34 +1,12 @@
-import React from "react";
-import Cookies from "js-cookie";
-import { Navigate, redirect } from "react-router-dom";
-import { useEffect, useState } from "react"
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 
 function CheckAuth({ children }) {
-    const token = Cookies.get("token");
-    const [isLoading, setIsLoading] = useState(false)
 
-    async function fetchUser() {
-        setIsLoading(true)
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/user`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        if (!res.ok) {
-            redirect("/login")
-        }
-        setIsLoading(false)
-    }
+    const auth = useSelector((state) => state.auth)
 
-    useEffect(() => {
-        fetchUser();
-    }, [])
-
-    if (isLoading) {
-        return (<p>"Loading"</p>)
-    }
-    return children;
+    return auth.isAuthenticated ? children : <Navigate to="/login" />;
 }
 
 export default CheckAuth;

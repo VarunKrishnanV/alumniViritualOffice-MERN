@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import DiscussionRoutes from "./routes/discussionRoutes.js";
-import AuthRoutes from "./routes/authRoutes.js";
+
 import connectToDb from "./database/mongoDb.js";
 import passport from "passport";
 import passportConfig from "./config/passport.js";
 import * as dotenv from "dotenv";
-import UserRoutes from "./routes/userRoutes.js";
+import routes from "./routes/index.js";
 
 dotenv.config();
 // initializing the app
@@ -27,10 +26,8 @@ await connectToDb();
 app.use(passport.initialize());
 passportConfig(passport);
 
-// Discussion Routes
-app.use("/discussion", DiscussionRoutes);
-app.use("/auth", AuthRoutes);
-app.use("/user", UserRoutes);
+//  Routes
+app.use("/", routes);
 
 // serverConfiguration
 //1. setting the root

@@ -12,9 +12,13 @@ import Container from '@mui/material/Container';
 import { Link as RouterLink } from 'react-router-dom'
 import Cookies from "js-cookie"
 import { useNavigate } from 'react-router-dom'
-import.meta.env.VITE_API_URL
+import.meta.env.VITE_API_URL;
+import { useDispatch } from "react-redux";
+import { getUser } from '../store/auth';
 
 export default function Login() {
+
+  const dispatch = useDispatch()
 
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
@@ -33,10 +37,11 @@ export default function Login() {
       },
     })
 
-    const { token } = await res.json();
+    const { token, user } = await res.json();
 
     if (res.ok) {
       Cookies.set("token", token)
+      dispatch(getUser(user))
       navigate("/")
     } else {
       window.alert("Incorrect password / Email Address")
@@ -48,7 +53,9 @@ export default function Login() {
       <CssBaseline />
       <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
 
-        <Avatar sx={{ m: 1, bgcolor: '#1876d2' }}>
+        <Avatar sx={{
+          m: 1, bgcolor: '#A12137'
+        }}>
           <LockOutlinedIcon />
         </Avatar>
 
@@ -91,6 +98,6 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
-    </Container>
+    </Container >
   );
 }

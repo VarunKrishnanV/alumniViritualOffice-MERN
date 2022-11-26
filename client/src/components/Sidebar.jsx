@@ -7,18 +7,22 @@ import iconContributions from "../assets/icons/iconContributions.svg";
 import iconLogout from "../assets/icons/iconLogout.svg";
 import { Link as AppRouter, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"
+import { useSelector } from 'react-redux';
 
 
 
 
 function Sidebar() {
+
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
     const navigate = useNavigate();
     function logout() {
-        if (window.confirm("Are you sure want to logout?")){
+        if (window.confirm("Are you sure want to logout?")) {
             Cookies.remove("token")
             navigate("/login")
         }
-        
+
     }
     return (
         <>
@@ -68,6 +72,17 @@ function Sidebar() {
                             <p className="w-3/4">Contributions</p>
                         </div>
                     </AppRouter>
+
+                    {/* {isAuthenticated && (
+                        <AppRouter to="">
+                            <div className="flex flex-auto">
+                                <div className="icon w-1/4">
+                                    <img src={iconContributions} alt="" />
+                                </div>
+                                <p className="w-3/4">Hello</p>
+                            </div>
+                        </AppRouter>
+                    )} */}
 
 
                     <div className="flex flex-auto" style={{ cursor: "pointer" }} onClick={logout}>

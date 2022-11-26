@@ -1,4 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+.css-hyum1k-MuiToolbar-root {
+    background: linear-gradient(
+        273.84deg,
+        #600817 1.56%,
+        #a12137 100%
+    ) !important;
+}
+.home .MuiBox-root {
+    min-height: calc(100vh - 70px);
+    background-color: #f4f4f4;
+}

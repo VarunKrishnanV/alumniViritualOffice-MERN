@@ -1,0 +1,28 @@
+.banner {
+    background-image: url(./../../assets/images/home-banner.png);
+    height: 30vh;
+    background-size: cover;
+    padding: 20px;
+}
+
+.bannerHeading {
+    font-size: 36px;
+    color: white;
+    font-weight: 600;
+}
+
+.bannerStats {
+    margin-top: 4px !important;
+}
+
+.bannerStats_item {
+    padding: 20px;
+}
+.bannerStats_item p {
+    font-size: 48px;
+    font-weight: 600;
+    color: #a12137;
+}
+.bannerStats_item span {
+    font-size: 20px;
+}

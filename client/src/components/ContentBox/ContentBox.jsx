@@ -7,7 +7,7 @@ function ContentBox() {
 
     return (
         <>
-            <div className="w-10/12 bg-gray-100">
+            <div className="w-10/12">
                 <div className="header p-10">
                     <div className="header__content">
                         <p className="text-white">My dashboard</p>
