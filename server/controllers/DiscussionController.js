@@ -9,6 +9,13 @@ export const get = async (req, res) => {
     res.json({ data: retriveDiscussions });
 };
 
+export const getLatest = async (req, res) => {
+    const retriveDiscussions = await DiscussionSchema.find().limit(3).sort({
+        createdAt: -1,
+    });
+    res.json({ data: retriveDiscussions });
+};
+
 export const create = async (req, res) => {
     const { dis_title, dis_description, dis_likes } = req.body;
 

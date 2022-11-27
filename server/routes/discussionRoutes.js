@@ -9,6 +9,7 @@ DiscussionRoutes.post("/", DiscussionController.create);
 
 // API - RETRIVE all discussions
 DiscussionRoutes.get("/", DiscussionController.get);
+DiscussionRoutes.get("/latest", DiscussionController.getLatest);
 
 DiscussionRoutes.delete("/:id", DiscussionController.destroy);
 
