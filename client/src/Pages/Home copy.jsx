@@ -80,7 +80,7 @@ function Home() {
 
     return (
         <div>
-            <Grid container item spacing={2}>
+            <Grid container item rowSpacing={{ sm: 1 }} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
 
 
                 {/* -----------------------------------banner----------------------------- */}
@@ -88,7 +88,7 @@ function Home() {
                 <Grid item xs={12} >
                     <Item className="banner">
                         <h1 className='bannerHeading'>👋 Hello {firstName} </h1>
-                        <Grid container item xs={12} sm={12} spacing={3} className="bannerStats">
+                        <Grid container item xs={12} sm={12} spacing={{ sm: 3, md: 3 }} className="bannerStats">
                             <Grid item xs={12} md={3} lg={3}>
                                 <Item className='bannerStats_item'>
                                     <p>123</p>
@@ -114,7 +114,7 @@ function Home() {
 
                 {/* ----------------------------------- content ----------------------------- */}
 
-                <Grid container item xs={12} style={{ marginTop: "30px" }} spacing={3}>
+                <Grid container item xs={12} style={{ marginTop: "30px" }} columnSpacing={{ xs: 10, sm: 4, md: 12 }} rowSpacing={{ sm: 4 }}>
 
                     {/* -----------------------------------recent discussions----------------------------- */}
 

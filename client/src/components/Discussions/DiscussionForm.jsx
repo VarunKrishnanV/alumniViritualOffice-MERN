@@ -1,18 +1,23 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Cookies from "js-cookie"
 // import.meta.env.VITE_API_URL
 
+// popups
+// import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
-function DiscussionForm({ setAllDiscussions }) {
-    // const [allDiscussions, setAllDiscussions] = useState([]);
+const token = Cookies.get("token")
 
-    useEffect(() => {
-        loadDiscussions();
-    }, []);
+function DiscussionForm({ loadDiscussions, handleClose }) {
 
+    // ------------------ Form Handiling -------------------
 
     // default values of input fields
     const [form, setForm] = useState({
@@ -21,28 +26,16 @@ function DiscussionForm({ setAllDiscussions }) {
         dis_likes: "0",
     });
 
-
-    async function loadDiscussions() {
-        const token = Cookies.get("token")
-        const discussions = await fetch(`${import.meta.env.VITE_API_URL}/discussion`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        const { data } = await discussions.json();
-        setAllDiscussions(data);
-    }
-
     // handle Input
     function handleInput(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
-        console.log(e.target.value);
     }
+
+
+    // ------------------ API tasks -------------------
 
     // handle submit
     async function handleSubmit(e) {
-        const token = Cookies.get("token")
-
         e.preventDefault();
         const res = await fetch(`${import.meta.env.VITE_API_URL}/discussion`, {
             method: "POST",
@@ -54,19 +47,24 @@ function DiscussionForm({ setAllDiscussions }) {
         });
         if (res.ok) {
             loadDiscussions();
+            handleClose();
         }
     }
 
+    // loading Discussions
+    useEffect(() => {
+        loadDiscussions();
+    }, []);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+
     return (
-        <div style={{ padding: "20px" }}>
-            <h1
-                style={{
-                    fontSize: "18px",
-                    marginBottom: "16px",
-                }}
-            >
-                Create new Discussion
-            </h1>
+        <div>
             <form>
                 <TextField
                     fullWidth
@@ -77,6 +75,7 @@ function DiscussionForm({ setAllDiscussions }) {
                     name="dis_title"
                     value={form.dis_title}
                     onChange={handleInput}
+                    style={{ marginTop: "20px" }}
                 />
                 <TextField
                     sx={{ marginTop: "8px" }}
@@ -91,15 +90,39 @@ function DiscussionForm({ setAllDiscussions }) {
                     value={form.dis_description}
                 />
 
-                <input onChange={handleInput} type="text" value={form.dis_likes} name="dis_likes" hidden />
+                <input
+                    onChange={handleInput}
+                    type="text"
+                    value={form.dis_likes}
+                    name="dis_likes"
+                    hidden
+                />
 
-                <Button variant="contained" onClick={handleSubmit} type="submit" sx={{
-                    marginTop: "10px", textTransform: "capitalize", backgroundColor: "#A12137",
-                }} >
-                    Create Discussion
-                </Button>
+                <DialogActions>
+                    <Button onClick={handleClose}
+                        sx={{
+                            marginTop: "10px",
+                            textTransform: "capitalize",
+                            backgroundColor: "transparent",
+                            color: "gray"
+                        }}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        type="submit"
+                        sx={{
+                            marginTop: "10px",
+                            textTransform: "capitalize",
+                            backgroundColor: "#A12137",
+                        }}
+                    >
+                        Create Discussion
+                    </Button>
+                </DialogActions>
             </form>
-        </div >
+        </div>
     );
 }
 

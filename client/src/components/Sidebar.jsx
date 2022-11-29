@@ -9,20 +9,32 @@ import { Link as AppRouter, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"
 import { useSelector } from 'react-redux';
 
-
-
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function Sidebar() {
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
     const navigate = useNavigate();
     function logout() {
-        if (window.confirm("Are you sure want to logout?")) {
-            Cookies.remove("token")
-            navigate("/login")
-        }
-
+        handleClickOpen()
+        // Cookies.remove("token")
+        // navigate("/login")
     }
     return (
         <>
@@ -85,15 +97,41 @@ function Sidebar() {
                     )} */}
 
 
-                    <div className="flex flex-auto" style={{ cursor: "pointer" }} onClick={logout}>
+                    <div className="flex flex-auto" style={{ cursor: "pointer" }} onClick={logout} >
                         <div className="icon w-1/4">
                             <img src={iconLogout} alt="" />
                         </div>
                         <p className="w-3/4">Logout</p>
                     </div>
 
+                    <div>
 
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {"Use Google's location service?"}
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Let Google help apps determine location. This means sending anonymous
+                                    location data to Google, even when no apps are running.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose}>Disagree</Button>
+                                <Button onClick={handleClose} autoFocus>
+                                    Agree
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
                 </nav>
+
+
             </div>
         </>
     );

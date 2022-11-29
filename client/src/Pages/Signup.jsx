@@ -28,7 +28,6 @@ export default function SignUp() {
     const [college, setCollege] = React.useState('')
     const handleCollege = (event) => {
         setCollege(event.target.value);
-        console.log(college);
     };
 
     // college dropdown
@@ -63,7 +62,6 @@ export default function SignUp() {
             user_type: data.get('user_type'),
         };
 
-        console.log(formData);
 
         const res = await fetch("http://localhost:5050/auth/signup", {
             method: "POST",

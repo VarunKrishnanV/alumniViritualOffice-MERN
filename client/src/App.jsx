@@ -6,6 +6,9 @@ import Cookies from "js-cookie";
 import Dashboard from "./dashboard";
 import { useEffect, useState } from "react"
 import { Navigate, redirect } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 
 function App() {
@@ -34,7 +37,10 @@ function App() {
     }, [])
 
     if (isLoading) {
-        return <p>Loading....</p>
+        return <div className="loadingContainer">
+            <CircularProgress />
+            <h1 style={{ fontSize: "20px" }}>Loading...</h1>
+        </div>
     }
 
     return (

@@ -1,6 +1,6 @@
 .banner {
     background-image: url(./../../assets/images/home-banner.png);
-    height: 30vh;
+    /* height: 30vh; */
     background-size: cover;
     padding: 20px;
 }

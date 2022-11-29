@@ -11,8 +11,9 @@ import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
-import Paavains from "./Pages/Paavains";
-import PageAllDiscussions from "./Pages/PageAllDiscussions";
+import Paavaians from "./Pages/Paavaians";
+import PaavaianDetails from "./Pages/PaavaianDetails";
+import Discussions from "./Pages/Discussions";
 import Contributions from "./Pages/Contributions";
 import ErrorPage from "./Pages/ErrorPage";
 import App from "./App";
@@ -24,6 +25,7 @@ import GuestAuth from "./utils/GuestAuth";
 // redux
 import { Provider } from 'react-redux'
 import store from './store/index.js'
+import DiscussionSingle from './components/Discussions/DiscussionSingle';
 
 
 
@@ -31,7 +33,7 @@ const token = Cookies.get("token");
 const router = createBrowserRouter([
     {
         element: <App />,
-        errorElement: <ErrorPage />,
+        // errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -51,14 +53,28 @@ const router = createBrowserRouter([
                 path: "/paavaians",
                 element: (
                     <CheckAuth>
-                        <Paavains />
+                        <Paavaians />
+                    </CheckAuth>),
+            },
+            {
+                path: "/paavaians/:id",
+                element: (
+                    <CheckAuth>
+                        <PaavaianDetails />
                     </CheckAuth>),
             },
             {
                 path: "/discussions",
                 element: (
                     <CheckAuth>
-                        <PageAllDiscussions />
+                        <Discussions />
+                    </CheckAuth>),
+            },
+            {
+                path: "/discussions/:id",
+                element: (
+                    <CheckAuth>
+                        <DiscussionSingle />
                     </CheckAuth>),
             },
             {
