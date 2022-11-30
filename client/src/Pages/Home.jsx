@@ -82,9 +82,7 @@ function Home() {
         <div>
             <Grid container item spacing={2}>
 
-
                 {/* -----------------------------------banner----------------------------- */}
-
                 <Grid item xs={12} >
                     <Item className="banner">
                         <h1 className='bannerHeading'>👋 Hello {firstName} </h1>
@@ -114,7 +112,7 @@ function Home() {
 
                 {/* ----------------------------------- content ----------------------------- */}
 
-                <Grid container item xs={12} style={{ marginTop: "30px" }} spacing={3}>
+                <Grid container item xs={12} style={{ marginTop: "0px" }} spacing={3}>
 
                     {/* -----------------------------------recent discussions----------------------------- */}
 

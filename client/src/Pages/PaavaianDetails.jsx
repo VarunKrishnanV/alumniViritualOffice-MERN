@@ -14,6 +14,8 @@ function PaavaianDetails() {
     const [paavaian, setPaavaian] = useState({})
 
     async function getSpecificUser() {
+        console.log('id: ', id);
+
 
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/allusers/paavaian/${id}`, {
