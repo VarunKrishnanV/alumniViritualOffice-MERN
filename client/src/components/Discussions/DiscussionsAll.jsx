@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import.meta.env.VITE_API_URL
-import Sessions from "js-cookie"
+import Cookies from "js-cookie"
 import.meta.env.VITE_API_URL
 import DiscussionCard from "./DiscussionCard"
 
@@ -8,7 +8,7 @@ function DiscussionsAll({ allDiscussions, loadDiscussions }) {
 
     //  Delete a discussion
     async function deleteDiscussion(id) {
-        const token = Sessions.get('token')
+        const token = Cookies.get('token')
 
         if (window.confirm("Are you sure want to delete the Discussion?")) {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/discussion/${id}`, {
