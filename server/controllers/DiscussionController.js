@@ -10,8 +10,15 @@ export const get = async (req, res) => {
 };
 
 export const getLatest = async (req, res) => {
-    const retriveDiscussions = await DiscussionSchema.find().limit(3).sort({
+    const retriveDiscussions = await DiscussionSchema.find().limit(4).sort({
         createdAt: -1,
+    });
+    res.json({ data: retriveDiscussions });
+};
+
+export const getOne = async (req, res) => {
+    const retriveDiscussions = await DiscussionSchema.find({
+        _id: req.params.id,
     });
     res.json({ data: retriveDiscussions });
 };
@@ -28,7 +35,6 @@ export const create = async (req, res) => {
 
     await createDiscussion.save();
     res.json({ data: req.body });
-    console.log(req.body);
 };
 
 export const destroy = async (req, res) => {

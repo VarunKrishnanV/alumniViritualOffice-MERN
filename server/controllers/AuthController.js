@@ -5,14 +5,21 @@ import jwt from "jsonwebtoken";
 export const register = async (req, res) => {
     // get all the detials
     const {
-        firstName,
-        lastName,
+        fullName,
         email,
         phone,
-        college,
         identity_number,
-        dept,
+        college,
         batch,
+        dept,
+        gender,
+        dob,
+        high_qualification,
+        present_organization,
+        designation,
+        current_city,
+        state,
+        country,
         password,
         alumni_status,
         user_type,
@@ -29,18 +36,24 @@ export const register = async (req, res) => {
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hashedPassword = bcrypt.hashSync(password, salt);
-    console.log("hashedPassword: ", hashedPassword);
 
     // inserting data into the database
     const user = await UserSchema({
-        firstName,
-        lastName,
+        fullName,
         email,
         phone,
-        college,
         identity_number,
-        dept,
+        college,
         batch,
+        dept,
+        gender,
+        dob,
+        high_qualification,
+        present_organization,
+        designation,
+        current_city,
+        state,
+        country,
         password: hashedPassword,
         alumni_status,
         user_type,
@@ -66,14 +79,16 @@ export const login = async (req, res) => {
         res.status(406).json({ message: "credentails not found" });
         return;
     }
-
     // jwt
     const payload = {
         username: email,
         _id: user._id,
+        alumni_status: user.alumni_status,
+        user_type: user.user_type,
+        full_name: user.fullName,
     };
+    console.log("payload: ", payload);
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-    console.log(token);
 
     res.json({ token, user });
 };

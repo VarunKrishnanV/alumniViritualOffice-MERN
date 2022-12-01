@@ -4,6 +4,7 @@ import AuthRoutes from "./authRoutes.js";
 import UserRoutes from "./userRoutes.js";
 import passport from "passport";
 import AllUserRoutes from "./allUserRoutes.js";
+import CommentsRoutes from "./CommentsRoutes.js";
 
 const router = Router();
 
@@ -19,5 +20,10 @@ router.use(
 );
 router.use("/auth", AuthRoutes);
 router.use("/user", UserRoutes);
+router.use(
+    "/comments",
+    passport.authenticate("jwt", { session: false }),
+    CommentsRoutes
+);
 
 export default router;

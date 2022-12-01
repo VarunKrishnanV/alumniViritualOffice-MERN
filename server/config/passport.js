@@ -17,11 +17,9 @@ export default (passport) => {
         new JwtStrategy(opts, function (jwt_payload, done) {
             UserSchema.findById(jwt_payload._id, function (err, user) {
                 if (err) {
-                    console.log(err);
                     return done(err, false);
                 }
                 if (user) {
-                    console.log(user);
                     return done(null, user);
                 } else {
                     return done(null, false);

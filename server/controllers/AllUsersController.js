@@ -9,3 +9,8 @@ export const getLatestUsers = async (req, res) => {
     const latestUsers = await UserSchema.find().limit(10);
     res.json({ latestUsers: latestUsers });
 };
+
+export const getSpecificUser = async (req, res) => {
+    const specificUser = await UserSchema.findOne({ _id: req.params.id });
+    res.json({ user: specificUser });
+};
