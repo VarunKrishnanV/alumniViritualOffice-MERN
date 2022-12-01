@@ -16,6 +16,7 @@ import PaavaianDetails from "./Pages/PaavaianDetails";
 import Discussions from "./Pages/Discussions";
 import Contributions from "./Pages/Contributions";
 import ErrorPage from "./Pages/ErrorPage";
+import Notifications from "./Pages/Notifications";
 import App from "./App";
 
 import Cookies from "js-cookie";
@@ -25,7 +26,7 @@ import GuestAuth from "./utils/GuestAuth";
 // redux
 import { Provider } from 'react-redux'
 import store from './store/index.js'
-import DiscussionSingle from './components/Discussions/DiscussionSingle';
+import DiscussionSingle from './Pages/DiscussionSingle';
 
 
 
@@ -40,7 +41,8 @@ const router = createBrowserRouter([
                 element: (
                     <CheckAuth>
                         <Home />
-                    </CheckAuth>),
+                    </CheckAuth>
+                ),
             },
             {
                 path: "/profile",
@@ -82,6 +84,13 @@ const router = createBrowserRouter([
                 element: (
                     <CheckAuth>
                         <Contributions />
+                    </CheckAuth>),
+            },
+            {
+                path: "/approve",
+                element: (
+                    <CheckAuth>
+                        <Notifications />
                     </CheckAuth>),
             },
         ],

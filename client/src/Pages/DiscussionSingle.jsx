@@ -42,7 +42,7 @@ function DiscussionSingle() {
     const discussionAlumniId = discussionData.alumni_id
 
     const user = await fetch(
-      `${import.meta.env.VITE_API_URL}/allusers/paavaian/${discussionId}`, {
+      `${import.meta.env.VITE_API_URL}/allusers/paavaian/${discussionAlumniId}`, {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
@@ -55,8 +55,6 @@ function DiscussionSingle() {
 
     // ---------------------- get associated comments -------------------
 
-
-
   }
 
 
@@ -65,7 +63,7 @@ function DiscussionSingle() {
   }, [])
 
   const { alumni_id, createdAt, dis_description, dis_likes, dis_title, status } = discussion
-  const { firstName, lastName, _id } = alumni
+  const { lastName, _id } = alumni
 
   const dateFormatter = (date) => {
     return dayjs(date).format('MMM DD, YYYY')
@@ -77,7 +75,7 @@ function DiscussionSingle() {
 
   async function getComments() {
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/comments/discussion/${discussionAlumniId}`, {
+      `${import.meta.env.VITE_API_URL}/comments/discussion/${discussionId}`, {
       headers: {
         Authorization: `Bearer ${Cookies.get("token")}`,
       },
@@ -90,21 +88,19 @@ function DiscussionSingle() {
 
   useEffect(() => {
     getComments()
-  }, [comments])
+  }, [])
 
 
-
-  // date formatter
   return (
     <>
-      <Grid className="DiscussionSingleContainer" container spacing={5}>
+      <Grid className="DiscussionSingleContainer" container spacing={0}>
 
         {/* discussion data */}
-        <Grid item xs={6} style={{ background: "#fcfcfc" }}>
+        <Grid item xs={6}>
           <div className="discussionDetails">
             <div className="discussion" >
               <div className="discussion__meta" >
-                <span className="discussion__author">{`${firstName} ${lastName}`}</span>
+                <span className="discussion__author">{`${fullName}`}</span>
                 <FiberManualRecordIcon className="content__separater" />
                 <span className="discussion__date">{dateFormatter(createdAt)}</span>
               </div>
@@ -121,11 +117,11 @@ function DiscussionSingle() {
         </Grid>
 
         {/* comment section */}
-        <Grid item xs={6} style={{ background: "#ebebeb", padding: "20px 20px" }}>
-          <div className='allComments'>
+        <Grid item xs={6} >
+          <div className="commentsAll_container" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             <Comments comments={comments} />
+            <CommentsForm discussionId={discussionId} getComments={getComments} />
           </div>
-          <CommentsForm discussionId={discussionId} />
         </Grid>
       </Grid>
     </>

@@ -15,7 +15,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 function Sidebar() {
 
     const [open, setOpen] = React.useState(false);
@@ -58,7 +58,7 @@ function Sidebar() {
                         </div>
                     </AppRouter>
 
-                    <AppRouter to="/paavaians">
+                    {/* <AppRouter to="/paavaians">
                         <div className="flex flex-auto">
                             <div className="icon w-1/4">
                                 <img src={iconAllUsers} alt="" />
@@ -83,6 +83,18 @@ function Sidebar() {
                             </div>
                             <p className="w-3/4">Contributions</p>
                         </div>
+                    </AppRouter> */}
+
+                    <AppRouter to="/approve">
+                        <div className="flex flex-auto">
+                            <div className="icon w-1/4">
+                                <img src={iconContributions} alt="" />
+
+                                {/* <img src={iconContributions} alt="" /> */}
+                                <DoneAllIcon />
+                            </div>
+                            <p className="w-3/4">Notifications</p>
+                        </div>
                     </AppRouter>
 
                     {/* {isAuthenticated && (
@@ -102,32 +114,6 @@ function Sidebar() {
                             <img src={iconLogout} alt="" />
                         </div>
                         <p className="w-3/4">Logout</p>
-                    </div>
-
-                    <div>
-
-                        <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
-                        >
-                            <DialogTitle id="alert-dialog-title">
-                                {"Use Google's location service?"}
-                            </DialogTitle>
-                            <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous
-                                    location data to Google, even when no apps are running.
-                                </DialogContentText>
-                            </DialogContent>
-                            <DialogActions>
-                                <Button onClick={handleClose}>Disagree</Button>
-                                <Button onClick={handleClose} autoFocus>
-                                    Agree
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
                     </div>
                 </nav>
 

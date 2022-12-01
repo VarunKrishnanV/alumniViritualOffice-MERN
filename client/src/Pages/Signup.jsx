@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +19,10 @@ import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 // routers
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
@@ -36,11 +41,25 @@ export default function SignUp() {
         setDept(event.target.value);
     };
 
-    // batch dropdown
-    const [batch, setBatch] = React.useState('')
+
+    const [gender, setGender] = React.useState('')
+    const handleGender = (event) => {
+        setGender(event.target.value);
+    };
+
+    const [dob, setDob] = useState(null);
+    // const [value, setValue] = React.useState(null);
+    const handleDob = (event) => {
+        setDob(event);
+        console.log(dob);
+    };
+
+    const [batch, setBatch] = React.useState("");
     const handleBatch = (event) => {
         setBatch(event.target.value);
     };
+
+
 
     // handing form submission
     const handleSubmit = async (event) => {
@@ -49,19 +68,27 @@ export default function SignUp() {
         const data = new FormData(event.currentTarget);
 
         const formData = {
-            firstName: data.get('firstName'),
-            lastName: data.get('lastName'),
+            fullName: data.get('fullName'),
             email: data.get('email'),
             phone: data.get('phone'),
-            college: data.get('college'),
             identity_number: data.get('identity_number'),
-            dept: data.get('dept'),
+            college: data.get('college'),
             batch: data.get('batch'),
+            dept: data.get('dept'),
+            gender: data.get('gender'),
+            dob: data.get('dob'),
+            high_qualification: data.get('high_qualification'),
+            present_organization: data.get('present_organization'),
+            designation: data.get('designation'),
+            current_city: data.get('current_city'),
+            state: data.get('state'),
+            country: data.get('country'),
             password: data.get('password'),
             alumni_status: data.get('alumni_status'),
             user_type: data.get('user_type'),
         };
 
+        console.log(formData);
 
         const res = await fetch("http://localhost:5050/auth/signup", {
             method: "POST",
@@ -91,29 +118,18 @@ export default function SignUp() {
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
-                    {/* firstname */}
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+
+                        {/* fullname */}
+                        <Grid item xs={12} >
                             <TextField
                                 autoComplete="given-name"
-                                name="firstName"
+                                name="fullName"
                                 required
                                 fullWidth
-                                id="firstName"
-                                label="First Name"
+                                id="fullName"
+                                label="Full Name"
                                 autoFocus
-                            />
-                        </Grid>
-
-                        {/* lastname */}
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="family-name"
                             />
                         </Grid>
 
@@ -145,7 +161,7 @@ export default function SignUp() {
                         {/* identity number */}
                         <Grid item xs={12}>
                             <TextField
-                                required
+                                // required
                                 fullWidth
                                 id="identity_number"
                                 label="Roll / Register number"
@@ -156,25 +172,6 @@ export default function SignUp() {
 
                         {/* college */}
                         <Grid item xs={12}>
-
-
-                            {/* <Autocomplete
-                                value={value}
-                                onChange={(event, newValue) => {
-                                    setCollege(newValue);
-                                }}
-                                inputValue={inputValue}
-                                onInputChange={(event, newInputValue) => {
-                                    setInputValue(newInputValue);
-                                }}
-                                id="controllable-states-demo"
-                                options={collegeOptions}
-                                sx={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Controllable" />}
-                            /> */}
-
-
-
                             <FormControl sx={{ width: "100%" }}>
                                 <InputLabel id="demo-select-small">College</InputLabel>
                                 <Select
@@ -195,29 +192,6 @@ export default function SignUp() {
                             </FormControl>
                         </Grid>
 
-                        {/* dept */}
-                        <Grid item xs={12}>
-                            <FormControl sx={{ width: "100%" }}>
-                                <InputLabel id="demo-select-small">Department</InputLabel>
-                                <Select
-                                    labelId="demo-select-small"
-                                    id="demo-select-small"
-                                    name='dept'
-                                    value={dept}
-                                    label="Department"
-                                    onChange={handleDept}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value="cse">CSE</MenuItem>
-                                    <MenuItem value="mech">Mech</MenuItem>
-                                    <MenuItem value="it">IT</MenuItem>
-                                    <MenuItem value="cyber">Cyber</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-
                         {/* batch */}
                         <Grid item xs={12}>
                             <FormControl sx={{ width: "100%" }}>
@@ -233,15 +207,202 @@ export default function SignUp() {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value="2021">2021</MenuItem>
-                                    <MenuItem value="2022">2022</MenuItem>
+                                    <MenuItem value="2030">2030</MenuItem>
+                                    <MenuItem value="2029">2029</MenuItem>
+                                    <MenuItem value="2028">2028</MenuItem>
+                                    <MenuItem value="2027">2027</MenuItem>
+                                    <MenuItem value="2026">2026</MenuItem>
+                                    <MenuItem value="2025">2025</MenuItem>
+                                    <MenuItem value="2024">2024</MenuItem>
                                     <MenuItem value="2023">2023</MenuItem>
+                                    <MenuItem value="2022">2022</MenuItem>
+                                    <MenuItem value="2021">2021</MenuItem>
+                                    <MenuItem value="2020">2020</MenuItem>
+                                    <MenuItem value="2019">2019</MenuItem>
+                                    <MenuItem value="2018">2018</MenuItem>
+                                    <MenuItem value="2017">2017</MenuItem>
+                                    <MenuItem value="2016">2016</MenuItem>
+                                    <MenuItem value="2015">2015</MenuItem>
+                                    <MenuItem value="2014">2014</MenuItem>
+                                    <MenuItem value="2013">2013</MenuItem>
+                                    <MenuItem value="2012">2012</MenuItem>
+                                    <MenuItem value="2011">2011</MenuItem>
+                                    <MenuItem value="2010">2010</MenuItem>
+                                    <MenuItem value="2009">2009</MenuItem>
+                                    <MenuItem value="2008">2008</MenuItem>
+                                    <MenuItem value="2007">2007</MenuItem>
+                                    <MenuItem value="2006">2006</MenuItem>
+                                    <MenuItem value="2005">2005</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
 
+                        {/* <Grid item xs={12}>
+                            <FormControl sx={{ width: "100%" }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        required
+                                        name="batch"
+                                        views={['year']}
+                                        label="Batch"
+                                        value={batch}
+                                        onChange={(newValue) => {
+                                            setBatch(newValue);
+                                        }}
+                                        renderInput={(params) => <TextField {...params} helperText={null} />}
+                                    />
+                                </LocalizationProvider>
+                            </FormControl>
+                        </Grid> */}
 
+                        {/* dept */}
+                        <Grid item xs={12}>
+                            <FormControl sx={{ width: "100%" }}>
+                                <InputLabel id="demo-select-small">Department</InputLabel>
+                                <Select
+                                    labelId="demo-select-small"
+                                    id="demo-select-small"
+                                    name='dept'
+                                    value={dept}
+                                    label="Department"
+                                    onChange={handleDept}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value="CSE">CSE</MenuItem>
+                                    <MenuItem value="CSE - IOT">CSE - IOT</MenuItem>
+                                    <MenuItem value="CSE - AI&ML">CSE - AI&ML</MenuItem>
+                                    <MenuItem value="IT">IT</MenuItem>
+                                    <MenuItem value="EEE">EEE</MenuItem>
+                                    <MenuItem value="ECE">ECE</MenuItem>
+                                    <MenuItem value="MECH">MECH</MenuItem>
+                                    <MenuItem value="AGRI">AGRI</MenuItem>
+                                    <MenuItem value="AERO">AERO</MenuItem>
+                                    <MenuItem value="CHEMICAL">CHEMICAL</MenuItem>
+                                    <MenuItem value="FOOD">FOOD</MenuItem>
+                                    <MenuItem value="PHARAMA">PHARAMA</MenuItem>
+                                    <MenuItem value="MCT">MCT</MenuItem>
+                                    <MenuItem value="MBA">MBA</MenuItem>
+                                    <MenuItem value="ROBOTICS">ROBOTICS</MenuItem>
+                                    <MenuItem value="BME">BME</MenuItem>
+                                    <MenuItem value="ME">ME</MenuItem>
+                                    <MenuItem value="FS">FS</MenuItem>
+                                    <MenuItem value="CIVIL">CIVIL</MenuItem>
+                                    <MenuItem value="BIO-TECH">BIO-TECH</MenuItem>
+                                    <MenuItem value="CYBER">CYBER</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
 
+                        {/* gender */}
+                        <Grid item xs={12}>
+                            <FormControl sx={{ width: "100%" }}>
+                                <InputLabel id="demo-select-small">Gender</InputLabel>
+                                <Select
+                                    labelId="demo-select-small"
+                                    id="demo-select-small"
+                                    name="gender"
+                                    label="Gender"
+                                    value={gender}
+                                    onChange={handleGender}
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value="male">Male</MenuItem>
+                                    <MenuItem value="female">Female</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        {/* --------------------date of birth----------------- */}
+                        <Grid item xs={12}>
+                            <FormControl sx={{ width: "100%" }}>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                        label="Date of Birth"
+                                        name="dob"
+                                        value={dob}
+                                        onChange={handleDob}
+
+                                        renderInput={(params) => <TextField name="dob" {...params} />}
+                                    />
+                                </LocalizationProvider>
+                            </FormControl>
+                        </Grid>
+
+                        {/* highest qualification */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="high_qualification"
+                                label="Highest Qualification"
+                                name="high_qualification"
+                                autoComplete="high_qualification"
+                            />
+                        </Grid>
+
+                        {/* present_organization */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="present_organization"
+                                label="Present organization"
+                                name="present_organization"
+                                autoComplete="present_organization"
+                            />
+                        </Grid>
+
+                        {/* designation */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="designation"
+                                label="Designation"
+                                name="designation"
+                                autoComplete="designation"
+                            />
+                        </Grid>
+
+                        {/* current_city */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="current_city"
+                                label="Current City"
+                                name="current_city"
+                                autoComplete="current_city"
+                            />
+                        </Grid>
+
+                        {/* state */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="state"
+                                label="State"
+                                name="state"
+                                autoComplete="state"
+                            />
+                        </Grid>
+
+                        {/* country */}
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="country"
+                                label="Country"
+                                name="country"
+                                autoComplete="country"
+                            />
+                        </Grid>
 
                         {/* password */}
                         <Grid item xs={12}>
@@ -272,9 +433,8 @@ export default function SignUp() {
                                 value="alumni"
                             />
                         </div>
-
-
                     </Grid>
+
                     <Button
                         type="submit"
                         fullWidth
@@ -297,3 +457,4 @@ export default function SignUp() {
         </Container >
     );
 }
+

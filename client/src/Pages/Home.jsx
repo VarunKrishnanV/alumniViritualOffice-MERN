@@ -29,15 +29,15 @@ function Home() {
     // Avatar name generatror
     function stringAvatar(name) {
         return {
-            children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+            children: `${name.split(' ')[0][0]}`,
         };
     }
 
     const [latestDiscussions, setLatestDiscussions] = useState([])
 
     const auth = useSelector((state) => state.auth)
-    const { firstName } = auth.user;
-
+    const { fullName } = auth.user;
+    console.log('fullName: ', fullName);
     // ------------------ API Calls -----------------
     const token = Cookies.get("token")
 
@@ -80,12 +80,12 @@ function Home() {
 
     return (
         <div>
-            <Grid container item spacing={2}>
+            <Grid container spacing={2}>
 
                 {/* -----------------------------------banner----------------------------- */}
                 <Grid item xs={12} >
                     <Item className="banner">
-                        <h1 className='bannerHeading'>👋 Hello {firstName} </h1>
+                        <h1 className='bannerHeading'>👋 Hello {fullName} </h1>
                         <Grid container item xs={12} sm={12} spacing={3} className="bannerStats">
                             <Grid item xs={12} md={3} lg={3}>
                                 <Item className='bannerStats_item'>
@@ -132,12 +132,13 @@ function Home() {
 
                             {
                                 latestUsers.map((user) => {
+                                    console.log(user);
                                     return (
                                         <ListItem key={user._id} style={{ gap: "10px", padding: "10px 0", borderBottom: "1px solid #EFEFEF" }}>
-                                            <Avatar style={{ background: "#a02136", fontSize: "14px" }} {...stringAvatar(`${user.firstName} ${user.lastName}`)} />
+                                            <Avatar style={{ background: "#a02136", fontSize: "14px" }} {...stringAvatar(`${fullName}`)} />
                                             <div className="user__detials">
                                                 <p className="user__name" style={{ fontWeight: 600, fontSize: "16px" }}>
-                                                    {`${user.firstName} ${user.lastName}`}
+                                                    {`${user.fullName}`}
                                                 </p>
 
                                                 <div className='user__meta' style={{ textTransform: "uppercase", fontSize: "14px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600, color: "#A6A6A6" }}>

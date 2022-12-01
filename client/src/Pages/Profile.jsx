@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function Profile() {
 
   const auth = useSelector((state) => state.auth)
-  const { _id, firstName, lastName, alumni_status, batch, college, createdAt, dept, email, phone } = auth.user;
+  const { _id, fullName, alumni_status, batch, college, createdAt, dept, email, phone } = auth.user;
 
 
   return (

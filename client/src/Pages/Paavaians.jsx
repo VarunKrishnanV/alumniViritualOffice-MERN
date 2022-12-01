@@ -26,8 +26,8 @@ const renderFullName = (row) => {
   return (
     <Link to={row.row._id}>
       <div style={{ display: "flex", alignItems: "Center", gap: "10px" }}>
-        <Avatar style={{ background: "#a02136", fontSize: "12px", width: "30px", height: "30px" }} {...stringAvatar(`${row.row.firstName} ${row.row.lastName}`)} />
-        {row.row.firstName} {row.row.lastName}
+        <Avatar style={{ background: "#a02136", fontSize: "12px", width: "30px", height: "30px" }} {...stringAvatar(`${row.fullName}`)} />
+        {row.row.fullName}
       </div>
     </Link>
   )
@@ -40,14 +40,14 @@ function Paavains() {
 
 
   const columns = [
-    { field: 'name', headerName: 'Alumni Name', minWidth: 200, flex: 2, renderCell: renderFullName },
+    { field: 'fullName', headerName: 'Alumni Name', minWidth: 200, flex: 2 },
     // { field: 'lastName', headerName: 'Last name', width: 100 },
     { field: 'phone', headerName: 'Phone', minWidth: 120 },
     { field: 'email', headerName: 'Email', minWidth: 200, flex: 1, },
     { field: 'college', headerName: 'College', minWidth: 50 },
     { field: 'batch', headerName: 'Batch', minWidth: 60 },
     { field: 'dept', headerName: 'Department', minWidth: 100 },
-    { field: 'job', headerName: 'Job', minWidth: 150 },
+    { field: 'present_organization', headerName: 'Company', minWidth: 150 },
     { field: 'View', headerName: 'View Profile', minWidth: 130, renderCell: RenderProfileButton },
   ];
 

@@ -29,7 +29,7 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
         );
 
         const user = await res.json();
-        setPaavaian(user.user.firstName)
+        setPaavaian(`${user.lastName}`)
     }
 
     useEffect(() => {
