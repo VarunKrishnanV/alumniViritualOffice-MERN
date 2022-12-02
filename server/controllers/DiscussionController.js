@@ -8,6 +8,14 @@ export const get = async (req, res) => {
     });
     res.json({ data: retriveDiscussions });
 };
+export const getAll = async (req, res) => {
+    const retriveDiscussions = await DiscussionSchema.find({
+        status: "published",
+    }).sort({
+        createdAt: -1,
+    });
+    res.json({ data: retriveDiscussions });
+};
 
 export const getLatest = async (req, res) => {
     const retriveDiscussions = await DiscussionSchema.find().limit(4).sort({

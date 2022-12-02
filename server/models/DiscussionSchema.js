@@ -6,7 +6,7 @@ const DiscussionSchema = new Schema({
     dis_description: String,
     dis_likes: Number,
     createdAt: { type: Date, default: Date.now },
-    status: { type: String, default: "Pending" },
+    status: { type: String, default: "in-approval" },
 });
 
 export default new mongoose.model("DiscussionSchema", DiscussionSchema);
