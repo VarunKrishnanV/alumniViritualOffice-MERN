@@ -16,7 +16,7 @@ function DiscussionSingle() {
 
   // get a discussion
   const [discussion, setDiscussion] = useState({});
-  const [alumni, setAlumni] = useState({})
+  const [author, setAuthor] = useState({})
 
   async function getOneDiscussion() {
     const token = Cookies.get("token");
@@ -50,7 +50,7 @@ function DiscussionSingle() {
 
     const alumniRes = await user.json();
     const alumniData = alumniRes.user;
-    setAlumni(alumniData)
+    setAuthor(alumniData)
 
 
     // ---------------------- get associated comments -------------------
@@ -63,7 +63,7 @@ function DiscussionSingle() {
   }, [])
 
   const { alumni_id, createdAt, dis_description, dis_likes, dis_title, status } = discussion
-  const { lastName, _id } = alumni
+  const { fullName, _id } = author
 
   const dateFormatter = (date) => {
     return dayjs(date).format('MMM DD, YYYY')

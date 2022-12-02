@@ -4,7 +4,7 @@ import Cookies from "js-cookie"
 import.meta.env.VITE_API_URL
 import DiscussionCard from "./DiscussionCard"
 
-function DiscussionsAll({ allDiscussions, loadDiscussions }) {
+function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
 
     //  Delete a discussion
     async function deleteDiscussion(id) {
@@ -23,12 +23,15 @@ function DiscussionsAll({ allDiscussions, loadDiscussions }) {
         }
     }
 
+    const discussions = allDiscussions ? allDiscussions : myDiscussions
+    
     return (
         <div>
             {
-                allDiscussions.length <= 0
+
+                discussions.length <= 0
                     ? "No Discussion Found"
-                    : allDiscussions.map((discussion) => {
+                    : discussions.map((discussion) => {
                         return (
                             <DiscussionCard key={discussion._id} data={discussion} deleteDiscussion={deleteDiscussion} />
                         );

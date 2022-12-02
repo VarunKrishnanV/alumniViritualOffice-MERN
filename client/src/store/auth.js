@@ -9,9 +9,6 @@ export const authSlice = createSlice({
     reducers: {
         getUser: (state, { payload }) => {
             state.user = payload.user;
-            state.fullName = payload.fullName;
-            state.alumni_status = payload.alumni_status;
-            state.user_type = payload.user_type;
             state.isAuthenticated = true;
         },
         logout: (state) => {

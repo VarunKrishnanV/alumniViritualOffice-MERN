@@ -22,11 +22,14 @@ import App from "./App";
 import Cookies from "js-cookie";
 import CheckAuth from "./utils/CheckAuth";
 import GuestAuth from "./utils/GuestAuth";
+import CheckAdmin from './utils/CheckAdmin';
 
 // redux
 import { Provider } from 'react-redux'
 import store from './store/index.js'
 import DiscussionSingle from './Pages/DiscussionSingle';
+import DontHaveAccess from './Pages/DontHaveAccess';
+import WaitForApproval from "./Pages/WaitForApproval";
 
 
 
@@ -87,10 +90,24 @@ const router = createBrowserRouter([
                     </CheckAuth>),
             },
             {
-                path: "/approve",
+                path: "/notifications",
+                element: (
+                    <CheckAdmin>
+                        <Notifications />
+                    </CheckAdmin>),
+            },
+            {
+                path: "/accessdenied",
                 element: (
                     <CheckAuth>
-                        <Notifications />
+                        <DontHaveAccess />
+                    </CheckAuth>),
+            },
+            {
+                path: "/waitforapproval",
+                element: (
+                    <CheckAuth>
+                        <WaitForApproval />
                     </CheckAuth>),
             },
         ],

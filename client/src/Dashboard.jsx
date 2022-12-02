@@ -25,9 +25,9 @@ import iconDiscussions from "./assets/icons/iconDiscussions.svg";
 import iconContributions from "./assets/icons/iconContributions.svg";
 import iconLogout from "./assets/icons/iconLogout.svg";
 import appLogo from "./assets/images/logo.svg"
-
+import iconNotifications from './assets/icons/iconNotifications.svg';
 import Cookies from "js-cookie"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { logout } from "./store/auth.js"
 
 
@@ -38,6 +38,9 @@ const drawerWidth = 240;
 
 function Dashboard(props) {
     const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth)
+    console.log('Dashauth: ', auth);
+
 
     const navigate = useNavigate();
 
@@ -54,14 +57,35 @@ function Dashboard(props) {
         navigate("/login")
     }
 
-    const navItems = [
-        { key: "1", label: "Home", route: "/", icon: iconHome },
-        { key: "2", label: "Profile", route: "/profile", icon: iconUser },
-        { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
-        { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
-        { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
-    ]
 
+    let navItems;
+
+    if (auth.user.user_type === "admin") {
+        navItems = [
+            { key: "1", label: "Home", route: "/", icon: iconHome },
+            { key: "2", label: "Profile", route: "/profile", icon: iconUser },
+            { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
+            { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
+            { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
+            { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
+        ]
+    } else if (auth.user.alumni_status === "active") {
+        navItems = [
+            { key: "1", label: "Home", route: "/", icon: iconHome },
+            { key: "2", label: "Profile", route: "/profile", icon: iconUser },
+            { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
+            { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
+            { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
+            // { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
+        ]
+    } else {
+        navItems = [
+            { key: "1", label: "Home", route: "/", icon: iconHome },
+            { key: "2", label: "Profile", route: "/profile", icon: iconUser },
+            { key: "4", label: "Discussions", route: "/waitforapproval", icon: iconDiscussions },
+            { key: "5", label: "Contributions", route: "/waitforapproval", icon: iconContributions },
+        ]
+    }
 
     const drawer = (
         <>
@@ -84,6 +108,8 @@ function Dashboard(props) {
                         )
                     })
                 }
+
+
                 <ListItem key="logout" disablePadding>
                     <ListItemButton onClick={_logout}>
                         <img style={{ marginRight: "20px" }} src={iconLogout} />

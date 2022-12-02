@@ -6,7 +6,12 @@ function CheckAuth({ children }) {
 
     const auth = useSelector((state) => state.auth)
 
-    return auth.isAuthenticated ? children : <Navigate to="/login" />;
+    if (auth) {
+        return children
+    } else {
+        return <Navigate to="/login" />
+    }
+
 }
 
 export default CheckAuth;

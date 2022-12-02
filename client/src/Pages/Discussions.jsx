@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import DiscussionForm from "../components/Discussions/DiscussionForm";
 import Cookies from "js-cookie"
@@ -12,10 +12,58 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import AllDiscussionTab from "../components/Discussions/AllDiscussionTab";
+import MyDiscussionTab from "../components/Discussions/MyDiscussionTab";
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
+
+
 const token = Cookies.get("token")
 
-export default function Discussions() {
 
+
+export default function Discussions() {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     // popup
     const [open, setOpen] = React.useState(false);
@@ -27,8 +75,6 @@ export default function Discussions() {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const [allDiscussions, setAllDiscussions] = useState([]);
 
     // ------------------ API Calls -----------------
 
@@ -49,13 +95,20 @@ export default function Discussions() {
         loadDiscussions()
     }, [])
 
+    const [allDiscussions, setAllDiscussions] = useState([]);
+
+
     return (
-        <Box className="AllDiscussionPageCotnainer" sx={{ flexGrow: 1, background: "", padding: "20px" }} >
-            <h2 className="pageHeading" variant="h5" sx={{ marginBottom: "16px" }}>All Discussions</h2>
-            <div>
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Create Discusssion
-                </Button>
+        <Box sx={{ width: '100%' }}>
+            <Grid container xs={12}>
+
+                <div className="discussionHeader" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                    <h2 className="pageHeading" variant="h5">Discussion Forum</h2>
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        Create Discusssion
+                    </Button>
+                </div>
+
                 <Dialog open={open} onClose={handleClose} >
                     <DialogTitle>Create new Discussion</DialogTitle>
                     <DialogContent>
@@ -66,27 +119,21 @@ export default function Discussions() {
                         <Button onClick={handleClose}>Subscribe</Button>
                     </DialogActions> */}
                 </Dialog>
-            </div>
-            <Grid className="AllDiscussionInner" container spacing={5}>
-                <Grid item xs={8}>
-                    <Box style={{ boxShadow: "none", padding: "0" }}>
-                        <DiscussionsAll allDiscussions={allDiscussions} loadDiscussions={loadDiscussions} />
-                    </Box>
-                </Grid>
-
-                <Grid item xs={4}>
-                    <Box style={{ boxShadow: "none", border: "1px solid #CBCBCB", padding: "20px" }}>
-                        {/* <DiscussionForm loadDiscussions={loadDiscussions} /> */}
-                        <h3 style={{ marginBottom: "8px", color: "#a02136", fontWeight: 500, fontSize: "18px" }}>How it works?</h3>
-                        <ol style={{ listStyleType: "number", marginLeft: "30px" }}>
-                            <li> Create a discussion</li>
-                            <li> Wait until admin publish your discussion</li>
-                            <li> Other Alumni can comment on your discussion</li>
-                            <li> You can able to view the comments once admin approve the comment</li>
-                        </ol>
-                    </Box>
-                </Grid>
             </Grid>
-        </Box >
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                    <Tab label="All Discussions" {...a11yProps(0)} />
+                    <Tab label="My Discussions" {...a11yProps(1)} />
+                    <Tab label="Item Three" {...a11yProps(2)} />
+                </Tabs>
+            </Box>
+            <TabPanel value={value} index={0} style={{ padding: 0 }}>
+                {/* All Discussions */}
+                <AllDiscussionTab />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <MyDiscussionTab />
+            </TabPanel>
+        </Box>
     );
 }
