@@ -1,11 +1,13 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import.meta.env.VITE_API_URL
 import Cookies from "js-cookie"
 import.meta.env.VITE_API_URL
 import DiscussionCard from "./DiscussionCard"
+import { Skeleton } from "@mui/material";
 
 function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
 
+    const [isLoading, setIsLoading] = useState(false)
     //  Delete a discussion
     async function deleteDiscussion(id) {
         const token = Cookies.get('token')
@@ -18,19 +20,20 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
                 },
             });
             if (res.ok) {
+                isLoading(true)
                 loadDiscussions()
             }
         }
     }
 
     const discussions = allDiscussions ? allDiscussions : myDiscussions
-    
+
     return (
         <div>
             {
 
                 discussions.length <= 0
-                    ? "No Discussion Found"
+                    ? "No Discussion Found" 
                     : discussions.map((discussion) => {
                         return (
                             <DiscussionCard key={discussion._id} data={discussion} deleteDiscussion={deleteDiscussion} />
