@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom'
 import.meta.env.VITE_API_URL;
 import { useDispatch } from "react-redux";
 import { getUser } from '../store/auth';
+import pecImage from "../assets/images/CollegeBanner.jpg"
+import pecLogo from "../assets/images/pec-logo.png"
 
 export default function Login() {
 
@@ -49,55 +51,61 @@ export default function Login() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
+    <>
+      <Grid container style={{ minHeight: "100vh" }}>
+        <Grid item xs={6}>
+          <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src="https://pec.paavai.edu.in/wp-content/uploads/2019/04/CollegeBanner.jpg" alt="" />
+        </Grid>
+        <Grid item xs={6}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
+              <img src={pecLogo} alt="" style={{ width: "80px" }} />
+              {/* <h1 style={{ fontSize: "28px", fontWeight: 600, color: "#000", marginTop: "20px" }}>Paavai Engineering College</h1> */}
+              <h2 style={{ fontSize: "28px", fontWeight: 500, color: "#000", marginTop: "20px" }}>Alumni Virtual Office</h2>
+              <Typography style={{ fontSize: "24px", fontWeight: 500, color: "gray", marginTop: "4px" }}>
+                Sign in
+              </Typography>
+              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
 
-        <Avatar sx={{
-          m: 1, bgcolor: '#A12137'
-        }}>
-          <LockOutlinedIcon />
-        </Avatar>
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} style={{ background: "#A12137" }}>
+                  Sign In
+                </Button>
+                <Grid container justifyContent="flex-end">
+                  <Grid item>
+                    <RouterLink to="/signup">
+                      <Link component="span" variant="body2">
+                        Don't have an account? Register
+                      </Link>
+                    </RouterLink>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Box>
+          </Container >
+        </Grid>
+      </Grid>
 
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} >
-            Sign In
-          </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <RouterLink to="/signup">
-                <Link component="span" variant="body2">
-                  Don't have an account? Register
-                </Link>
-              </RouterLink>
-            </Grid>
-          </Grid>
-        </Box>
-      </Box>
-    </Container >
+    </>
   );
 }

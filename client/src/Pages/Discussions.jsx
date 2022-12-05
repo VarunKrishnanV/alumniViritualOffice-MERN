@@ -19,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AllDiscussionTab from "../components/Discussions/AllDiscussionTab";
 import MyDiscussionTab from "../components/Discussions/MyDiscussionTab";
+import { Skeleton } from "@mui/material";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -78,24 +79,24 @@ export default function Discussions() {
 
     // ------------------ API Calls -----------------
 
+    const [allDiscussions, setAllDiscussions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
     // getting all disucussions
     async function loadDiscussions() {
         const token = Cookies.get("token")
         const discussions = await fetch(`${import.meta.env.VITE_API_URL}/discussion`, {
             headers: {
-
                 Authorization: `Bearer ${token}`
             }
         });
         const { data } = await discussions.json();
+        setIsLoading(true)
         setAllDiscussions(data);
     }
 
     useEffect(() => {
         loadDiscussions()
     }, [])
-
-    const [allDiscussions, setAllDiscussions] = useState([]);
 
 
     return (
@@ -124,7 +125,6 @@ export default function Discussions() {
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="All Discussions" {...a11yProps(0)} />
                     <Tab label="My Discussions" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} style={{ padding: 0 }}>

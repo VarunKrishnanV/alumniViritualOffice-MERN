@@ -8,6 +8,7 @@ import { Skeleton } from "@mui/material";
 function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
 
     const [isLoading, setIsLoading] = useState(false)
+
     //  Delete a discussion
     async function deleteDiscussion(id) {
         const token = Cookies.get('token')
@@ -20,7 +21,7 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
                 },
             });
             if (res.ok) {
-                isLoading(true)
+                setIsLoading(true)
                 loadDiscussions()
             }
         }
@@ -31,15 +32,16 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
     return (
         <div>
             {
-
-                discussions.length <= 0
-                    ? "No Discussion Found" 
-                    : discussions.map((discussion) => {
-                        return (
-                            <DiscussionCard key={discussion._id} data={discussion} deleteDiscussion={deleteDiscussion} />
-                        );
-                    })}
-
+                (
+                    discussions.length <= 0
+                        ? "No Discussions Found"
+                        : discussions.map((discussion) => {
+                            return (
+                                <DiscussionCard key={discussion._id} data={discussion} deleteDiscussion={deleteDiscussion} />
+                            );
+                        })
+                )
+            }
         </div >
     );
 }

@@ -7,7 +7,7 @@ import "../../../index.css"
 
 function Comments({ comments }) {
     const dateFormatter = (date) => {
-        return dayjs(date).format('MMM DD, YYYY - H:M:A')
+        return dayjs(date).format('MMM DD, YYYY h:M:A')
     }
 
     // const [commentor, setCommentor] = useState("")
@@ -31,13 +31,13 @@ function Comments({ comments }) {
         <div className='comments_container'>
             {comments.map((item) => {
 
-                const { _id, commented_by } = item
+                const { _id, commented_by, commented_by_name } = item
 
                 return (
                     <div key={_id} className='comment_container'>
                         <div className="discussion__meta" >
-                            {/* <span className="discussion__author">{commented_by}</span> */}
-                            {/* <FiberManualRecordIcon className="content__separater" /> */}
+                            <span className="discussion__author">{commented_by_name}</span>
+                            <FiberManualRecordIcon className="content__separater" />
                             <span className="discussion__date">{dateFormatter(item.createdAt)}</span>
                         </div>
                         <p className='comment_data'>{item.comment}</p>

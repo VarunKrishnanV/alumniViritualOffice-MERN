@@ -8,7 +8,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import Cookies from "js-cookie";
 import dayjs from "dayjs"
 import Comments from '../components/Discussions/Comments/Comments';
-
+import CommentsDisabledIcon from '@mui/icons-material/CommentsDisabled';
 
 function DiscussionSingle() {
 
@@ -119,8 +119,20 @@ function DiscussionSingle() {
         {/* comment section */}
         <Grid item xs={6} >
           <div className="commentsAll_container" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
-            <Comments comments={comments} />
-            <CommentsForm discussionId={discussionId} getComments={getComments} />
+            {
+              (status === "published")
+                ? (<>
+                  <Comments comments={comments} />
+                  <CommentsForm discussionId={discussionId} getComments={getComments} />
+                </>)
+                : (
+                  <div style={{ width: "100%", height: "100%", display: "flex", alignSelf: "center", justifyContent: "center", color: "gray" }}>
+                    <p style={{ textAlign: "center", alignSelf: "center", width: "70%", lineHeight: "1.8", display: "flex", flexDirection: "column", alignItems: "center", }}>
+                      <CommentsDisabledIcon style={{ fontSize: "32px", marginBottom : "12px" }} />
+                      Comment section will be turned on once the article is approved
+                    </p>
+                  </div>
+                )}
           </div>
         </Grid>
       </Grid>

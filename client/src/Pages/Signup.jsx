@@ -27,7 +27,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export default function SignUp() {
-
     const navigate = useNavigate();
     // college dropdown
     const [college, setCollege] = React.useState('')
@@ -237,24 +236,6 @@ export default function SignUp() {
                             </FormControl>
                         </Grid>
 
-                        {/* <Grid item xs={12}>
-                            <FormControl sx={{ width: "100%" }}>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker
-                                        required
-                                        name="batch"
-                                        views={['year']}
-                                        label="Batch"
-                                        value={batch}
-                                        onChange={(newValue) => {
-                                            setBatch(newValue);
-                                        }}
-                                        renderInput={(params) => <TextField {...params} helperText={null} />}
-                                    />
-                                </LocalizationProvider>
-                            </FormControl>
-                        </Grid> */}
-
                         {/* dept */}
                         <Grid item xs={12}>
                             <FormControl sx={{ width: "100%" }}>
@@ -316,7 +297,7 @@ export default function SignUp() {
                             </FormControl>
                         </Grid>
 
-                        {/* --------------------date of birth----------------- */}
+                        {/* date of birth */}
                         <Grid item xs={12}>
                             <FormControl sx={{ width: "100%" }}>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>

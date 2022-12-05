@@ -5,6 +5,13 @@ export const getAllUsers = async (req, res) => {
     res.json({ allUsers: allUsers });
 };
 
+export const getInApprovalUsers = async (req, res) => {
+    const allUsers = await UserSchema.find({
+        alumni_status: "in-approval",
+    });
+    res.json({ allUsers: allUsers });
+};
+
 export const getLatestUsers = async (req, res) => {
     const latestUsers = await UserSchema.find().limit(10);
     res.json({ latestUsers: latestUsers });

@@ -44,10 +44,8 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
             key={_id}
             style={{
                 minWidth: 275,
-                padding: "8px",
                 margin: "0 0 16px 0",
                 boxShadow: "none",
-                // border-bott: "1px solid #CBCBCB",
             }}
         >
             {isLoading ? (

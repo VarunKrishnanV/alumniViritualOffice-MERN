@@ -60,7 +60,7 @@ function Dashboard(props) {
 
     let navItems;
 
-    if (auth.user.user_type === "admin") {
+    if (auth.user.user_type === "admin" && auth.user.alumni_status === "active") {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
             { key: "2", label: "Profile", route: "/profile", icon: iconUser },
@@ -69,7 +69,7 @@ function Dashboard(props) {
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
             { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
         ]
-    } else if (auth.user.alumni_status === "active") {
+    } else if (auth.user.user_type === "alumni" && auth.user.alumni_status === "active") {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
             { key: "2", label: "Profile", route: "/profile", icon: iconUser },
@@ -108,7 +108,6 @@ function Dashboard(props) {
                         )
                     })
                 }
-
 
                 <ListItem key="logout" disablePadding>
                     <ListItemButton onClick={_logout}>

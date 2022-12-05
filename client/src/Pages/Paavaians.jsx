@@ -36,17 +36,14 @@ const renderFullName = (row) => {
 
 function Paavains() {
 
-
-
-
   const columns = [
     { field: 'fullName', headerName: 'Alumni Name', minWidth: 200, flex: 2 },
-    // { field: 'lastName', headerName: 'Last name', width: 100 },
     { field: 'phone', headerName: 'Phone', minWidth: 120 },
     { field: 'email', headerName: 'Email', minWidth: 200, flex: 1, },
     { field: 'college', headerName: 'College', minWidth: 50 },
     { field: 'batch', headerName: 'Batch', minWidth: 60 },
     { field: 'dept', headerName: 'Department', minWidth: 100 },
+    { field: 'alumni_status', headerName: 'Status', minWidth: 100 },
     { field: 'present_organization', headerName: 'Company', minWidth: 150 },
     { field: 'View', headerName: 'View Profile', minWidth: 130, renderCell: RenderProfileButton },
   ];

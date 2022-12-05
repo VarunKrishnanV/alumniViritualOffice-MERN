@@ -18,9 +18,13 @@ export const getAll = async (req, res) => {
 };
 
 export const getLatest = async (req, res) => {
-    const retriveDiscussions = await DiscussionSchema.find().limit(4).sort({
-        createdAt: -1,
-    });
+    const retriveDiscussions = await DiscussionSchema.find({
+        status: "published",
+    })
+        .limit(4)
+        .sort({
+            createdAt: -1,
+        });
     res.json({ data: retriveDiscussions });
 };
 

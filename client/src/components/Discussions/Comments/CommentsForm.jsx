@@ -6,16 +6,23 @@ import SendIcon from '@mui/icons-material/Send';
 
 export default function Comments({ discussionId, getComments }) {
 
+    console.log(useSelector);
+
+
+
     const [comment, setComment] = useState("")
 
     const auth = useSelector((state) => state.auth)
-    const { _id: userId } = auth.user;
+    // const { _id: userId } = auth.user;
+    const { _id, fullName, alumni_status, batch, college, createdAt, dept, email, phone } = auth.user;
 
     let commentDetails = {
         discussion_id: discussionId,
         // commented_by: userId,
+        commented_by_name: fullName,
         comment: comment,
-        status: "pending"
+        status: "pending",
+
     }
 
     async function handleSubmit(e) {
