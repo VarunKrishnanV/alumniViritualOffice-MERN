@@ -21,3 +21,10 @@ export const getSpecificUser = async (req, res) => {
     const specificUser = await UserSchema.findOne({ _id: req.params.id });
     res.json({ user: specificUser });
 };
+
+export const updateUserStatus = async (req, res) => {
+    const userData = await UserSchema.findOne({ _id: req.params.id });
+    Object.assign(userData, req.body);
+    userData.save();
+    res.json({ user: userData });
+};

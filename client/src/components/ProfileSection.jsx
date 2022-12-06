@@ -3,11 +3,37 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import dayjs from 'dayjs';
 import Chip from '@mui/material/Chip';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
 
 function ProfileSection({ data }) {
 
     const { _id, fullName, alumni_status, batch, college, createdAt, dept, email, phone, gender, dob, high_qualification, present_organization, designation, current_city, state, country } = data;
 
+    // user status updater
+    // const [updatedData, setUpdatedData] = useState(data)
+
+    const statusData = {
+        alumni_status: "active"
+    }
+
+    // const [status, setStatus] = useState(statusData);
+
+    // approve users
+    async function approveInApprovalUser(id) {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/allusers/inapproval/${id}`, {
+            method: "PATCH",
+            body: JSON.stringify(statusData),
+            headers: {
+                "content-type": "application/json",
+                Authorization: `Bearer ${Cookies.get("token")}`,
+            },
+        });
+
+        if (res.ok) {
+            console.log("updated");
+        }
+    }
 
     const dateFormatter = (date) => {
         return dayjs(date).format('MMM DD, YYYY - H:M:A')
@@ -17,12 +43,16 @@ function ProfileSection({ data }) {
     // Avatar name generatror
     function stringAvatar(name) {
         return {
-            // children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+            children: `${name.split(' ')[0][0]}`,
         };
     }
 
+
     return (
         <>
+
+            <button onClick={() => approveInApprovalUser(_id)}>Approve</button>
+
             <Grid container spacing={2}>
                 <Grid className='detailsTitle' item xs={12} lg={2.5} md={12}>
                     <div className='profileImageContainer'>

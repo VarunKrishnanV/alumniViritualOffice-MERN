@@ -8,7 +8,6 @@ import Chip from '@mui/material/Chip';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
-
 const RenderProfileButton = (row) => {
     return (
         <Link to={`/paavaians/${row.row._id}`}>
@@ -17,12 +16,12 @@ const RenderProfileButton = (row) => {
     )
 };
 
-
 function InApprovalUsers() {
 
     const token = Cookies.get("token")
     const [inApprovalUsers, setInApprovalUsers] = useState([]);
 
+    // fetchUsers
     async function fetchInApprovalUser() {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/allusers/inapproval`, {
             headers: {
@@ -30,12 +29,15 @@ function InApprovalUsers() {
                 Authorization: `Bearer ${token}`,
             }
         })
-
         const users = await res.json();
         if (res.ok) {
             setInApprovalUsers(users.allUsers);
         }
     }
+
+    useEffect(() => {
+        fetchInApprovalUser()
+    }, [])
 
 
 
@@ -50,11 +52,6 @@ function InApprovalUsers() {
         { field: 'alumni_status', headerName: 'Status', minWidth: 100 },
         { field: 'View', headerName: 'View Profile', minWidth: 130, renderCell: RenderProfileButton },
     ];
-
-    useEffect(() => {
-        fetchInApprovalUser()
-    }, [])
-
 
     function generateRandom() {
         var length = 8,
