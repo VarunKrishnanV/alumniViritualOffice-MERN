@@ -9,9 +9,6 @@ const token = Cookies.get("token")
 
 export default function MyDiscussionTab() {
 
-
-
-
     const [myDiscussions, setMyDiscussions] = useState([]);
 
     // getting all disucussions
@@ -19,7 +16,6 @@ export default function MyDiscussionTab() {
         const token = Cookies.get("token")
         const discussions = await fetch(`${import.meta.env.VITE_API_URL}/discussion`, {
             headers: {
-
                 Authorization: `Bearer ${token}`
             }
         });
@@ -29,7 +25,7 @@ export default function MyDiscussionTab() {
 
     useEffect(() => {
         loadDiscussions()
-    }, [])
+    }, [myDiscussions])
 
     return (
         <Box className="AllDiscussionPageCotnainer" sx={{ flexGrow: 1, background: "" }} >

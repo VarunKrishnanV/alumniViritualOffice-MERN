@@ -123,16 +123,15 @@ export default function Discussions() {
             </Grid>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="All Discussions" {...a11yProps(0)} />
-                    <Tab label="My Discussions" {...a11yProps(1)} />
+                    <Tab label="My Discussions" {...a11yProps(0)} />
+                    <Tab label="All Discussions" {...a11yProps(1)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} style={{ padding: 0 }}>
-                {/* All Discussions */}
-                <AllDiscussionTab />
+                <MyDiscussionTab loadDiscussions={loadDiscussions} allDiscussions={allDiscussions} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <MyDiscussionTab />
+                <AllDiscussionTab />
             </TabPanel>
         </Box>
     );

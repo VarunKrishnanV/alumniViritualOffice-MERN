@@ -27,7 +27,7 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
         }
     }
 
-    const discussions = allDiscussions ? allDiscussions : myDiscussions
+    const discussions = allDiscussions ? allDiscussions : myDiscussions 
 
     return (
         <div>

@@ -8,10 +8,13 @@ import Cookies from "js-cookie"
 import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useSelector } from 'react-redux';
+
 
 const token = Cookies.get("token")
 
 function DiscussionForm({ loadDiscussions, handleClose }) {
+    const auth = useSelector((state) => state.auth)
 
     // ------------------ Form Handiling -------------------
 
@@ -20,6 +23,7 @@ function DiscussionForm({ loadDiscussions, handleClose }) {
         dis_title: "",
         dis_description: "",
         dis_likes: "0",
+        dis_by: auth.user.fullName,
     });
 
     // handle Input

@@ -73,7 +73,7 @@ function Dashboard(props) {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
             { key: "2", label: "Profile", route: "/profile", icon: iconUser },
-            { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
+            // { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
             { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
             // { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },

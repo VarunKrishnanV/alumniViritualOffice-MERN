@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import Chip from '@mui/material/Chip';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-
+import { CSVLink, CSVDownload } from "react-csv";
 
 const RenderProfileButton = (row) => {
   return (
@@ -16,26 +16,30 @@ const RenderProfileButton = (row) => {
     </Link>
   )
 };
+
+const RenderStatus = (row) => {
+  return (
+    <span className="discussion__author"
+      style={row.row.alumni_status === "in-approval" ?
+        { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500, fontSize: "12px" }
+        : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500, fontSize: "12px" }
+      }
+    >
+      {`${row.row.alumni_status}`}
+    </span>
+  )
+}
+
+
+
 // Avatar name generatror
 function stringAvatar(name) {
   return {
     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
   };
 }
-const renderFullName = (row) => {
-  return (
-    <Link to={row.row._id}>
-      <div style={{ display: "flex", alignItems: "Center", gap: "10px" }}>
-        <Avatar style={{ background: "#a02136", fontSize: "12px", width: "30px", height: "30px" }} {...stringAvatar(`${row.fullName}`)} />
-        {row.row.fullName}
-      </div>
-    </Link>
-  )
-}
-
 
 function Paavains() {
-
   const columns = [
     { field: 'fullName', headerName: 'Alumni Name', minWidth: 200, flex: 2 },
     { field: 'phone', headerName: 'Phone', minWidth: 120 },
@@ -43,11 +47,10 @@ function Paavains() {
     { field: 'college', headerName: 'College', minWidth: 50 },
     { field: 'batch', headerName: 'Batch', minWidth: 60 },
     { field: 'dept', headerName: 'Department', minWidth: 100 },
-    { field: 'alumni_status', headerName: 'Status', minWidth: 100 },
+    { field: 'alumni_status', headerName: 'Status', minWidth: 100, renderCell: RenderStatus },
     { field: 'present_organization', headerName: 'Company', minWidth: 150 },
     { field: 'View', headerName: 'View Profile', minWidth: 130, renderCell: RenderProfileButton },
   ];
-
 
   const token = Cookies.get("token");
 
@@ -81,10 +84,28 @@ function Paavains() {
     return retVal;
   }
 
+  function backupUsersData() {
+    console.log("Hi");
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+      JSON.stringify(allUsers)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    console.log(link);
+    link.download = "allUsers.csv";
+    link.click();
+  }
+
   return (
     <div className='paavaiansContainer'>
-      <h1 className='pageHeading'>Paavians</h1>
 
+      <div className="discussionHeader" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+        <h2 className="pageHeading" variant="h5">Paavians</h2>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button variant="outlined"><CSVLink data={allUsers}>Download CSV</CSVLink></Button>
+          <Button variant="outlined" onClick={backupUsersData}>Download JSON</Button>
+        </div>
+      </div>
       <Box sx={{ height: "70vh", width: '100%' }}>
         <DataGrid
           rows={allUsers}
@@ -95,8 +116,7 @@ function Paavains() {
           getRowId={() => generateRandom()}
         />
       </Box>
-
-    </div>
+    </div >
   )
 }
 
