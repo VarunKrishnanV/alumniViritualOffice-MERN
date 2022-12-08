@@ -13,3 +13,9 @@ async function connectToDb() {
 }
 
 export default connectToDb;
+
+
+//         mongodb+srv://alumniVirtualOffice:Alumni2022@alumni.tqsozd4.mongodb.net/?retryWrites=true&w=majority
+// MONGO_DB_USERNAME = "alumniVirtualOffice";
+// MONGO_DB_PASSWORD = "Alumni2022";
+// MONGO_DB_URL = "alumni.tqsozd4.mongodb.net";

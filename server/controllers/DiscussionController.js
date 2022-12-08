@@ -8,6 +8,16 @@ export const get = async (req, res) => {
     });
     res.json({ data: retriveDiscussions });
 };
+
+export const getInApproval = async (req, res) => {
+    const retriveDiscussions = await DiscussionSchema.find({
+        status: "in-approval",
+    }).sort({
+        createdAt: -1,
+    });
+    res.json({ data: retriveDiscussions });
+};
+
 export const getAll = async (req, res) => {
     const retriveDiscussions = await DiscussionSchema.find({
         status: "published",
@@ -35,11 +45,18 @@ export const getOne = async (req, res) => {
     res.json({ data: retriveDiscussions });
 };
 
-export const create = async (req, res) => {
-    const { dis_title, dis_description, dis_likes } = req.body;
+export const getUserDiscussionCount = async (req, res) => {
+    const discussionCount = await DiscussionSchema.find({
+        alumni_id: req.user._id,
+    }).count();
+    res.json({ data: discussionCount });
+};
 
+export const create = async (req, res) => {
+    const { dis_title, dis_description, dis_likes, dis_by } = req.body;
     const createDiscussion = new DiscussionSchema({
         alumni_id: req.user._id,
+        dis_by,
         dis_title,
         dis_description,
         dis_likes,
@@ -54,4 +71,17 @@ export const destroy = async (req, res) => {
         _id: req.params.id,
     });
     res.json(`Deleted Successfully. ${deleteDiscussion}`);
+};
+
+export const updateStatus = async (req, res) => {
+    console.log(req.params.id);
+    console.log(req.body);
+    const discussion = await DiscussionSchema.findOne({
+        _id: req.params.id,
+    });
+    Object.assign(discussion, req.body);
+    discussion.save();
+    console.log("84", discussion);
+
+    res.json({ discussion: discussion });
 };

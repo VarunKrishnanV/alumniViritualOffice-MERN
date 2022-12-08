@@ -9,6 +9,7 @@ CommentsRoutes.post("/", CommentsController.create);
 // API - RETRIVE all discussions
 CommentsRoutes.get("/", CommentsController.get);
 CommentsRoutes.get("/discussion/:id", CommentsController.getSpecific);
+CommentsRoutes.get("/count", CommentsController.getUserCommentsCount);
 // DiscussionRoutes.get("/", DiscussionController.get);
 
 // db.student.find().sort({ age: 1 });

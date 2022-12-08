@@ -21,13 +21,19 @@ export const get = async (req, res) => {
     res.json({ data: retriveComments });
 };
 
+// nostes for specific discussion
 export const getSpecific = async (req, res) => {
     console.log(req.params.id);
     const retriveComments = await CommentsSchema.find({
         discussion_id: req.params.id,
-    }).sort({
-        createdAt: -1,
     });
     console.log(retriveComments);
     res.json({ data: retriveComments });
+};
+
+export const getUserCommentsCount = async (req, res) => {
+    const commentsCount = await CommentsSchema.find({
+        commented_by: req.user._id,
+    }).count();
+    res.json({ data: commentsCount });
 };

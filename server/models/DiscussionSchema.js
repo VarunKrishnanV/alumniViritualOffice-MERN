@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const DiscussionSchema = new Schema({
     alumni_id: mongoose.Types.ObjectId,
+    dis_by: String,
     dis_title: String,
     dis_description: String,
     dis_likes: Number,
