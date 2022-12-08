@@ -41,6 +41,10 @@ function Comments({ comments }) {
                             <span className="discussion__date">{dateFormatter(item.createdAt)}</span>
                         </div>
                         <p className='comment_data'>{item.comment}</p>
+                        <div className='discussion__actions'>
+                            <button className='action__publish'>Publish</button>
+                            <button className='action__unpublish'>UnPublish</button>
+                        </div>
                     </div>
                 )
             })}

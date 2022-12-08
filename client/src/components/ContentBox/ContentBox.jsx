@@ -1,6 +1,5 @@
 import React from "react";
 import "./ContentBox.css";
-import { useEffect, useState } from "react"
 import DiscussionsAll from "../Discussions/DiscussionsAll";
 
 function ContentBox() {

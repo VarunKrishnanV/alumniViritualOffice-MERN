@@ -2,13 +2,8 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import Cookies from "js-cookie"
-import SendIcon from '@mui/icons-material/Send';
 
 export default function Comments({ discussionId, getComments }) {
-
-    console.log(useSelector);
-
-
 
     const [comment, setComment] = useState("")
 
@@ -48,7 +43,7 @@ export default function Comments({ discussionId, getComments }) {
     return (
         <>
             <form action="" className='comment_form'>
-                <input type="text" onChange={handleChange} className='comment_input' />
+                <input type="text" onChange={handleChange} className='comment_input' placeholder='Enter your comment' />
                 <button style={{ background: "white" }} value="submit" onClick={handleSubmit} type='submit' className='comment_button'>Comment</button>
             </form>
 

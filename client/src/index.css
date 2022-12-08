@@ -108,6 +108,25 @@
     font-size: 18px;
 }
 
+.discussion__actions {
+    /* background-color: skyblue; */
+    gap: 8px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.discussion__actions .action__unpublish,
+.discussion__actions .action__publish {
+    background-color: #ffe3e8;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 50px;
+}
+
+.discussion__actions .action__publish {
+    background-color: #c7efe5;
+}
 .commentsAll_container {
     /* background-color: rgb(244, 244, 244); */
     /* box-shadow: 0px 0px 20px #d7d7d7; */

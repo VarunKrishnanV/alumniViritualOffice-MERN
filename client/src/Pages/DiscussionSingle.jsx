@@ -55,11 +55,12 @@ function DiscussionSingle() {
   }
 
 
-  const { _id: discussion_id, alumni_id, createdAt, dis_description, dis_likes, dis_title, status: discussion_status } = discussion
-  const { fullName, _id } = author
+  const { _id: discussion_id, alumni_id: discussion__author_id, createdAt, dis_description, dis_likes, dis_title, status: discussion_status } = discussion
+  const { fullName, _id: author_id } = author
 
   const dateFormatter = (date) => {
-    return dayjs(date).format('MMM DD, YYYY')
+    return dayjs(date).format('MMM DD, YYYY h:M:A')
+
   }
 
   // ---------------------all comments------------------
@@ -106,8 +107,9 @@ function DiscussionSingle() {
     getComments()
   }, [])
 
-
+  console.log(discussion__author_id, author_id);
   return (
+
     <>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "30px" }}>
         <h1 className='pageHeading' style={{ marginBottom: 0, fontSize: "24px" }}>Discussion</h1>
@@ -123,20 +125,36 @@ function DiscussionSingle() {
 
       <Grid className="DiscussionSingleContainer" container spacing={0}>
         {/* discussion data */}
-        <Grid item xs={6}>
+        <Grid item xs={12} md={6}>
           <div className="discussionDetails">
             <div className="discussion" >
               <div className="discussion__meta" >
                 <span className="discussion__author">{`${fullName}`}</span>
                 <FiberManualRecordIcon className="content__separater" />
                 <span className="discussion__date">{dateFormatter(createdAt)}</span>
-                <FiberManualRecordIcon className="content__separater" />
-                <span className="discussion__author"
-                  style={discussion_status === "in-approval" ?
-                    { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
-                    : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
-                  }
-                >{`${discussion_status}`}</span>
+
+                {/* show the status only to the author */}
+
+                {
+                  discussion__author_id !== auth.user._id
+                    ? ""
+                    :
+                    (
+                      <>
+                        <FiberManualRecordIcon className="content__separater" />
+                        <span className="discussion__author"
+                          style={discussion_status === "in-approval" ?
+                            { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                            : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                          }
+                        >{`${discussion_status}`}</span>
+                      </>
+                    )
+                }
+
+
+
+
               </div>
               <div className="discussion__details">
                 <h2 className="discussion__title" >
@@ -151,7 +169,7 @@ function DiscussionSingle() {
         </Grid>
 
         {/* comment section */}
-        <Grid item xs={6} >
+        <Grid item xs={12} md={6} >
           <div className="commentsAll_container" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
             {
               (discussion_status === "published")

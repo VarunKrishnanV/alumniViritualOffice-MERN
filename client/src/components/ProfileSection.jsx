@@ -3,18 +3,11 @@ import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import dayjs from 'dayjs';
 import Chip from '@mui/material/Chip';
-import { useState } from 'react';
-import Cookies from 'js-cookie';
-import Button from '@mui/material/Button';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 function ProfileSection({ data, getSpecificUser, deactiateUser, approveInApprovalUser }) {
-    const auth = useSelector((state) => state.auth)
-    const navigate = useNavigate();
-    const { _id, user_type, fullName, alumni_status, batch, college, createdAt, dept, email, phone, gender, dob, high_qualification, present_organization, designation, current_city, state, country } = data;
-
+    const { _id,  fullName, alumni_status, batch, college, createdAt, dept, email, phone, gender, dob, high_qualification, present_organization, designation, current_city, state, country } = data;
     const dateFormatter = (date) => {
         return dayjs(date).format('MMM DD, YYYY - H:M:A')
     }

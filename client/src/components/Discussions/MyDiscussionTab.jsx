@@ -30,13 +30,12 @@ export default function MyDiscussionTab() {
     return (
         <Box className="AllDiscussionPageCotnainer" sx={{ flexGrow: 1, background: "" }} >
             <Grid className="AllDiscussionInner" container spacing={5}>
-                <Grid item xs={8}>
+                <Grid item xs={12} md={8}>
                     <Box style={{ boxShadow: "none", padding: "0" }}>
                         <DiscussionsAll myDiscussions={myDiscussions} loadDiscussions={loadDiscussions} />
                     </Box>
                 </Grid>
-
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     <Box style={{ boxShadow: "none", border: "1px solid #CBCBCB", padding: "20px" }}>
                         {/* <DiscussionForm loadDiscussions={loadDiscussions} /> */}
                         <h3 style={{ marginBottom: "8px", color: "#a02136", fontWeight: 500, fontSize: "18px" }}>How it works?</h3>

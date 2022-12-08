@@ -8,7 +8,7 @@ import "./styles/home.css"
 import DiscussionsLatest from '../components/Discussions/DiscussionsLatest';
 import Cookies from 'js-cookie';
 
-// latest users
+// material 
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 
