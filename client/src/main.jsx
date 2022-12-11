@@ -6,7 +6,6 @@ import {
     RouterProvider,
     Navigate,
 } from "react-router-dom";
-// import router from "./routes.js";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";

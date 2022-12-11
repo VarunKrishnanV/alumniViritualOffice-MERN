@@ -1,11 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
-import Grid from '@mui/material/Grid';
 import { useParams } from "react-router-dom"
 import Cookies from 'js-cookie';
 import ProfileSection from '../components/ProfileSection';
-import { useNavigate } from 'react-router-dom';
+
+// materail UI
+import Grid from '@mui/material/Grid';
 import { Button } from '@mui/material';
 
 function PaavaianDetails() {

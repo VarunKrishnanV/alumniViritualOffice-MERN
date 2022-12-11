@@ -16,7 +16,7 @@ export default function Comments({ discussionId, getComments }) {
         // commented_by: userId,
         commented_by_name: fullName,
         comment: comment,
-        status: "pending",
+        status: "in-approval",
 
     }
 

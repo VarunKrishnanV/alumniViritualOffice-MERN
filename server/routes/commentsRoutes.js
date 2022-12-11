@@ -10,6 +10,7 @@ CommentsRoutes.post("/", CommentsController.create);
 CommentsRoutes.get("/", CommentsController.get);
 CommentsRoutes.get("/discussion/:id", CommentsController.getSpecific);
 CommentsRoutes.get("/count", CommentsController.getUserCommentsCount);
+CommentsRoutes.patch("/comment/status/:id", CommentsController.updateStatus);
 // DiscussionRoutes.get("/", DiscussionController.get);
 
 // db.student.find().sort({ age: 1 });

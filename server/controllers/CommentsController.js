@@ -37,3 +37,16 @@ export const getUserCommentsCount = async (req, res) => {
     }).count();
     res.json({ data: commentsCount });
 };
+
+export const updateStatus = async (req, res) => {
+    console.log(req.params.id);
+    console.log(req.body);
+    const comment = await CommentsSchema.findOne({
+        _id: req.params.id,
+    });
+    Object.assign(comment, req.body);
+    comment.save();
+    console.log("server -> comment.js 49", comment);
+
+    res.json({ comment: comment });
+};

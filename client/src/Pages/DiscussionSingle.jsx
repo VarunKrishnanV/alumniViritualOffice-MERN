@@ -14,17 +14,29 @@ import { Button } from '@mui/material';
 
 function DiscussionSingle() {
 
+  // variables
   const discussionId = useParams().id
-  const auth = useSelector((state) => state.auth)
 
-  // get a discussion
   const [discussion, setDiscussion] = useState({});
   const [author, setAuthor] = useState({})
+  const [comments, setComments] = useState([])
+  const auth = useSelector((state) => state.auth)
+  const { _id: discussion_id, alumni_id: discussion__author_id, createdAt, dis_description, dis_likes, dis_title, status: discussion_status } = discussion
+  const { fullName, _id: author_id } = author
 
+
+
+  const dateFormatter = (date) => {
+    return dayjs(date).format('MMM DD, YYYY h:M:A')
+
+  }
+
+
+  //GET THE DETAILS OF A DISCUSSION
   async function getOneDiscussion() {
     const token = Cookies.get("token");
 
-    // ---------------------- get discussion details -------------------
+    //API ------ get discussion details
     const discussion = await fetch(
       `${import.meta.env.VITE_API_URL}/discussion/discuss/${discussionId}`,
       {
@@ -38,7 +50,8 @@ function DiscussionSingle() {
     const discussionData = await res.data[0]
     setDiscussion(discussionData)
 
-    // ---------------------- finding the author of the discussion -------------------
+
+    //API ------ get author details
     const discussionAlumniId = discussionData.alumni_id
     const user = await fetch(
       `${import.meta.env.VITE_API_URL}/allusers/paavaian/${discussionAlumniId}`, {
@@ -49,23 +62,9 @@ function DiscussionSingle() {
     const alumniRes = await user.json();
     const alumniData = alumniRes.user;
     setAuthor(alumniData)
-
-    // ---------------------- get associated comments -------------------
-
   }
 
-
-  const { _id: discussion_id, alumni_id: discussion__author_id, createdAt, dis_description, dis_likes, dis_title, status: discussion_status } = discussion
-  const { fullName, _id: author_id } = author
-
-  const dateFormatter = (date) => {
-    return dayjs(date).format('MMM DD, YYYY h:M:A')
-
-  }
-
-  // ---------------------all comments------------------
-  const [comments, setComments] = useState([])
-
+  //API ------ get comments for a discussion
   async function getComments() {
     const res = await fetch(
       `${import.meta.env.VITE_API_URL}/comments/discussion/${discussionId}`, {
@@ -79,11 +78,11 @@ function DiscussionSingle() {
   }
 
 
+  // --------------------- updating discussion status -------------------
 
-  // --------------------- update discussion status -------------------
+  //API ------ update the status of the disucsssion
 
   const data = discussion_status === "published" ? { status: "in-approval" } : { status: "published" }
-
   async function updateDiscussionStatus(id) {
     if (window.confirm("Are you sure want to publish / unpublish the discussion?")) {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/discussion/discuss/status/${id}`, {
@@ -94,11 +93,13 @@ function DiscussionSingle() {
           Authorization: `Bearer ${Cookies.get("token")}`,
         },
       });
+
       if (res.ok) {
-        console.log("updated");
+        // if updated rerender the comments section and the discussion details
         getComments();
         getOneDiscussion();
       }
+
     }
   }
 
@@ -107,10 +108,11 @@ function DiscussionSingle() {
     getComments()
   }, [])
 
-  console.log(discussion__author_id, author_id);
   return (
 
     <>
+
+      {/* publish and unpublish buttons only for admin */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "30px" }}>
         <h1 className='pageHeading' style={{ marginBottom: 0, fontSize: "24px" }}>Discussion</h1>
         {
@@ -123,39 +125,35 @@ function DiscussionSingle() {
         }
       </div>
 
+      {/* disucssion --- discussion details, comments */}
       <Grid className="DiscussionSingleContainer" container spacing={0}>
-        {/* discussion data */}
         <Grid item xs={12} md={6}>
+
           <div className="discussionDetails">
             <div className="discussion" >
+
+              {/* Discussion Meta Data ---- name, date created, status(only to the author)  */}
               <div className="discussion__meta" >
                 <span className="discussion__author">{`${fullName}`}</span>
                 <FiberManualRecordIcon className="content__separater" />
                 <span className="discussion__date">{dateFormatter(createdAt)}</span>
-
                 {/* show the status only to the author */}
-
                 {
                   discussion__author_id !== auth.user._id
-                    ? ""
-                    :
-                    (
-                      <>
-                        <FiberManualRecordIcon className="content__separater" />
-                        <span className="discussion__author"
-                          style={discussion_status === "in-approval" ?
-                            { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
-                            : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
-                          }
-                        >{`${discussion_status}`}</span>
-                      </>
-                    )
+                    ? "" :
+                    (<>
+                      <FiberManualRecordIcon className="content__separater" />
+                      <span className="discussion__author"
+                        style={discussion_status === "in-approval" ?
+                          { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                          : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                        }
+                      >{`${discussion_status}`}</span>
+                    </>)
                 }
-
-
-
-
               </div>
+
+              {/* Discussion Details ---- Title and description)  */}
               <div className="discussion__details">
                 <h2 className="discussion__title" >
                   {dis_title}
@@ -165,35 +163,37 @@ function DiscussionSingle() {
                 </p>
               </div>
             </div>
+
           </div>
         </Grid>
 
         {/* comment section */}
         <Grid item xs={12} md={6} >
           <div className="commentsAll_container" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
+            {/* if the discussion is published show the comments */}
             {
               (discussion_status === "published")
                 ?
-                (
-                  comments.length !== 0 ?
-                    <>
-                      <Comments comments={comments} />
-                      <CommentsForm discussionId={discussionId} getComments={getComments} />
-                    </>
-                    :
-                    <>
-                      <p style={{ textAlign: "center", color: "gray" }}>Be the first one to commen on this post</p>
-                      <CommentsForm discussionId={discussionId} getComments={getComments} />
-                    </>
+                // show "no comments" if there is no comments else show comments
+                (comments.length !== 0 ?
+                  <>
+                    <Comments comments={comments} getComments = {getComments} />
+                    <CommentsForm discussionId={discussionId} getComments={getComments} />
+                  </>
+                  :
+                  <>
+                    <p style={{ textAlign: "center", color: "gray" }}>Be the first one to commen on this post</p>
+                    <CommentsForm discussionId={discussionId} getComments={getComments} />
+                  </>
                 )
-                : (
-                  <div style={{ width: "100%", height: "100%", display: "flex", alignSelf: "center", justifyContent: "center", color: "gray" }}>
-                    <p style={{ textAlign: "center", alignSelf: "center", width: "70%", lineHeight: "1.8", display: "flex", flexDirection: "column", alignItems: "center", }}>
-                      <CommentsDisabledIcon style={{ fontSize: "32px", marginBottom: "12px" }} />
-                      Comment section will be turned on once the article is approved
-                    </p>
-                  </div>
-                )}
+                //  else show the the comments open on approval
+                : (<div style={{ width: "100%", height: "100%", display: "flex", alignSelf: "center", justifyContent: "center", color: "gray" }}>
+                  <p style={{ textAlign: "center", alignSelf: "center", width: "70%", lineHeight: "1.8", display: "flex", flexDirection: "column", alignItems: "center", }}>
+                    <CommentsDisabledIcon style={{ fontSize: "32px", marginBottom: "12px" }} />
+                    Comment section will be turned on once the article is approved
+                  </p>
+                </div>)
+            }
           </div>
         </Grid>
       </Grid>

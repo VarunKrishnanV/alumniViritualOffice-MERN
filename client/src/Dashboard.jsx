@@ -1,7 +1,14 @@
+import AppBar from '@mui/material/AppBar';
+import * as React from 'react';
+import { Link, useNavigate, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import Cookies from "js-cookie"
+import { logout } from "./store/auth.js"
+
+// CSS
 import "./App.css";
 
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+// material UI
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
@@ -14,7 +21,6 @@ import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from "react-router-dom";
 
 
 // icons
@@ -26,12 +32,6 @@ import iconContributions from "./assets/icons/iconContributions.svg";
 import iconLogout from "./assets/icons/iconLogout.svg";
 import appLogo from "./assets/images/logo.svg"
 import iconNotifications from './assets/icons/iconNotifications.svg';
-import Cookies from "js-cookie"
-import { useDispatch, useSelector } from "react-redux"
-import { logout } from "./store/auth.js"
-
-
-import { Outlet } from 'react-router-dom'
 
 
 const drawerWidth = 240;
@@ -60,6 +60,7 @@ function Dashboard(props) {
 
     let navItems;
 
+    // sidebar for admin
     if (auth.user.user_type === "admin" && auth.user.alumni_status === "active") {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
@@ -69,16 +70,18 @@ function Dashboard(props) {
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
             { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
         ]
-    } else if (auth.user.user_type === "alumni" && auth.user.alumni_status === "active") {
+    } 
+    // sidebar fo alumni - users who were approved by admin
+    else if (auth.user.user_type === "alumni" && auth.user.alumni_status === "active") {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
             { key: "2", label: "Profile", route: "/profile", icon: iconUser },
-            // { key: "3", label: "Paavaians", route: "/paavaians", icon: iconAllUsers },
             { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
-            // { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
         ]
-    } else {
+    } 
+    // sidebar for guest - users who were not approved by admin
+    else {
         navItems = [
             { key: "1", label: "Home", route: "/", icon: iconHome },
             { key: "2", label: "Profile", route: "/profile", icon: iconUser },
@@ -109,6 +112,7 @@ function Dashboard(props) {
                     })
                 }
 
+                {/* logout item on sidebar */}
                 <ListItem key="logout" disablePadding>
                     <ListItemButton onClick={_logout}>
                         <img style={{ marginRight: "20px" }} src={iconLogout} />
@@ -136,7 +140,6 @@ function Dashboard(props) {
                 </Toolbar>
             </AppBar>
             <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders" >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     container={container}
                     variant="temporary"
@@ -156,6 +159,8 @@ function Dashboard(props) {
                     {drawer}
                 </Drawer>
             </Box>
+
+
             <Box style={{ marginTop: "70px" }} component="main" sx={{ marginTop: "60px", flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }} >
                 <Outlet />
             </Box>

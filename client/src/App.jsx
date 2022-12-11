@@ -1,15 +1,12 @@
 
 import "./App.css";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getUser } from "./store/auth.js"
 import Cookies from "js-cookie";
 import Dashboard from "./dashboard";
 import { useEffect, useState } from "react"
-import { Navigate, redirect } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
-import LinearProgress from '@mui/material/LinearProgress';
-
-
 
 function App() {
     const dispatch = useDispatch()

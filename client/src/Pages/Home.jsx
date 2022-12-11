@@ -1,17 +1,17 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+
+// other files
+import "./styles/home.css"
+import DiscussionsLatest from '../components/Discussions/DiscussionsLatest';
+
+// material ui
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useSelector } from 'react-redux';
-import "./styles/home.css"
-import DiscussionsLatest from '../components/Discussions/DiscussionsLatest';
-import Cookies from 'js-cookie';
-
-// material 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-
 import Avatar from '@mui/material/Avatar';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
@@ -25,23 +25,19 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Home() {
 
-
-    // Avatar name generatror
-    function stringAvatar(name) {
-        return {
-            children: `${name.split(' ')[0][0]}`,
-        };
-    }
-
     const [latestDiscussions, setLatestDiscussions] = useState([])
+    const [latestUsers, setLatestUsers] = useState([])
+    const [discussionCount, setDiscussionCount] = useState(0)
+    const [commentsCount, setCommentsCount] = useState(0)
+    const [contributionCount, setContributionCount] = useState(0)
 
     const auth = useSelector((state) => state.auth)
     const { fullName } = auth.user;
-
-    // ------------------ API Calls -----------------
     const token = Cookies.get("token")
 
-    // getting all disucussions
+    // ------------------ API Calls -----------------
+
+    // API ----- getting all disucussions
     async function loadLatestDiscussions() {
         const discussions = await fetch(`${import.meta.env.VITE_API_URL}/discussion/latest`, {
             headers: {
@@ -52,8 +48,7 @@ function Home() {
         setLatestDiscussions(data);
     }
 
-    const [latestUsers, setLatestUsers] = useState([])
-
+    // API ----- get latest users
     async function getLatestUsers() {
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/allusers/latest`, {
@@ -67,10 +62,7 @@ function Home() {
         setLatestUsers(users.latestUsers);
     }
 
-
-    // get discussion count
-    const [discussionCount, setDiscussionCount] = useState(0)
-
+    // API ----- get discussion count
     async function getDiscussionCount() {
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/discussion/count`, {
@@ -81,13 +73,9 @@ function Home() {
         );
         const disCount = await res.json();
         setDiscussionCount(disCount.data)
-        // setLatestUsers(users.latestUsers);
     }
 
-
-    // get discussion count
-    const [commentsCount, setCommentsCount] = useState(0)
-
+    // API ----- get discussion count
     async function getCommentsCount() {
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/comments/count`, {
@@ -98,12 +86,9 @@ function Home() {
         );
         const comCount = await res.json();
         setCommentsCount(comCount.data)
-        // setLatestUsers(users.latestUsers);
     }
 
-    // get contributionn count
-    const [contributionCount, setContributionCount] = useState(0)
-
+    // API ----- get contributionn count
     async function getContributionsCount() {
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/contributions/count`, {
@@ -127,8 +112,7 @@ function Home() {
     return (
         <div>
             <Grid container spacing={2}>
-
-                {/* -----------------------------------banner----------------------------- */}
+                {/* -----------------------banner--------------- */}
                 <Grid item xs={12} >
                     <Item className="banner">
                         <h1 className='bannerHeading'>👋 Hello {fullName} </h1>
@@ -156,11 +140,11 @@ function Home() {
                     </Item>
                 </Grid>
 
-                {/* ----------------------------------- content ----------------------------- */}
+                {/* --------------------- content ---------------- */}
 
                 <Grid container item xs={12} style={{ marginTop: "0px" }} spacing={3}>
 
-                    {/* -----------------------------------recent discussions----------------------------- */}
+                    {/* ------------------recent discussions---------------- */}
 
                     <Grid item xs={12} lg={8}>
                         <div>
@@ -170,8 +154,7 @@ function Home() {
                     </Grid>
 
 
-                    {/* ----------------------------------- People recently joined ----------------------------- */}
-
+                    {/* --------------------- People recently joined ------------------- */}
                     <Grid item xs={12} lg={4}>
                         <h1 style={{ fontSize: "24px", fontWeight: 600, color: "#a02136" }}>Alumni Recently Joined</h1>
                         <List item sx={{ width: '100%', gap: "30px" }}>
@@ -198,17 +181,10 @@ function Home() {
                                     }
                                 })
                             }
-
-
                         </List>
-
                     </Grid>
-
                 </Grid>
             </Grid>
-
-
-
         </div >
     )
 }

@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
-import Chip from '@mui/material/Chip';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import { CSVLink, CSVDownload } from "react-csv";
