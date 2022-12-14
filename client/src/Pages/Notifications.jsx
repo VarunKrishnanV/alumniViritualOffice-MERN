@@ -23,6 +23,7 @@ import { Skeleton } from "@mui/material";
 import InApprovalUsers from "../components/AdminTabs/InApprovalUsers";
 import InApprovalDiscussions from "../components/AdminTabs/InApprovalDiscussions";
 import InApprovalComments from "../components/AdminTabs/InApprovalComments";
+import InApprovalContributions from "../components/AdminTabs/InApprovalContributions";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -136,7 +137,7 @@ export default function Discussions() {
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        Contributions approval
+        <InApprovalContributions />
       </TabPanel>
     </Box>
   );

@@ -9,7 +9,6 @@ export const create = async (req, res) => {
         comment,
         status,
     });
-
     await createComment.save();
     res.json({ data: req.body });
 };
@@ -27,7 +26,6 @@ export const getSpecific = async (req, res) => {
     const retriveComments = await CommentsSchema.find({
         discussion_id: req.params.id,
     });
-    console.log(retriveComments);
     res.json({ data: retriveComments });
 };
 
@@ -46,7 +44,5 @@ export const updateStatus = async (req, res) => {
     });
     Object.assign(comment, req.body);
     comment.save();
-    console.log("server -> comment.js 49", comment);
-
     res.json({ comment: comment });
 };

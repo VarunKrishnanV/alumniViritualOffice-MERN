@@ -37,7 +37,7 @@ function Comments({ comments, getComments }) {
 
         if (window.confirm("Are you sure want to publish / unpublish the comment?")) {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/comments/comment/status/${id}`, {
-                method: "PATCH", import { useSelector } from 'react-redux';
+                method: "PATCH",
 
                 body: JSON.stringify(data),
                 headers: {
@@ -61,30 +61,101 @@ function Comments({ comments, getComments }) {
         <div className='comments_container'>
             {comments.map((item) => {
 
-                const { _id, commented_by_name, comment, status, createdAt } = item
+                const { _id, commented_by, commented_by_name, comment, status, createdAt } = item
 
-                return (
-                    <div key={_id} className='comment_container'>
-                        <div className="discussion__meta" >
-                            <span className="discussion__author">{commented_by_name}</span>
-                            <FiberManualRecordIcon className="content__separater" />
-                            <span className="discussion__date">{dateFormatter(createdAt)}</span>
-                            <FiberManualRecordIcon className="content__separater" />
-                            <span className="discussion__date" style={{ textTransform: "capitalize" }}>{status}</span>
-                        </div>
-                        <p className='comment_data'>{comment}</p>
-                        <div className='discussion__actions'>
+                if (status === "in-approval") {
+                    if (auth.user.user_type === "admin" || commented_by === auth.user._id) {
+                        return (
+                            <div key={_id} className='comment_container'>
+                                <div className="discussion__meta" >
 
-                            {
-                                status === "published"
-                                    ? <button className='action__unpublish' onClick={() => updateCommentStatus(_id, status)}>UnPublish</button>
-                                    : <button className='action__publish' onClick={() => updateCommentStatus(_id, status)}>Publish</button>
-                            }
+                                    <span className="discussion__author">{commented_by === auth.user._id ? "You" : commented_by_name}</span>
+
+                                    <FiberManualRecordIcon className="content__separater" />
+                                    <span className="discussion__date">{dateFormatter(createdAt)}</span>
+                                    {auth.user.user_type === "admin" || commented_by === auth.user._id
+                                        ?
+                                        <>
+                                            <FiberManualRecordIcon className="content__separater" />
+                                            {/* <span className="discussion__author"
+                                                style={status === "in-approval" ?
+                                                    { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                                                    : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                                                }
+                                            >{`${status}`}</span> */}
+                                            <span className="discussion__author"
+                                                style={status === "in-approval" ?
+                                                    { color: "#A67A46", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                                    : { color: "#007E5F", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                                }
+                                            >{`${status}`}</span>
+                                        </>
+                                        : ""
+                                    }
+                                </div>
+                                <p className='comment_data'>{comment}</p>
+                                <div className='discussion__actions'>
+
+                                    {
+                                        auth.user.user_type === "admin"
+                                            ?
+                                            status === "published"
+                                                ? <button className='action__unpublish' onClick={() => updateCommentStatus(_id, status)}>UnPublish</button>
+                                                : <button className='action__publish' onClick={() => updateCommentStatus(_id, status)}>Publish</button>
+                                            : ""
+                                    }
+                                </div>
+                            </div>
+                        )
+                    }
+
+                } else if (status === "published") {
+                    return (
+                        <div key={_id} className='comment_container'>
+                            <div className="discussion__meta" >
+
+                                <span className="discussion__author">{commented_by === auth.user._id ? "You" : commented_by_name}</span>
+
+                                <FiberManualRecordIcon className="content__separater" />
+                                <span className="discussion__date">{dateFormatter(createdAt)}</span>
+                                {auth.user.user_type === "admin" || commented_by === auth.user._id
+                                    ?
+                                    <>
+                                        <FiberManualRecordIcon className="content__separater" />
+                                        {/* <span className="discussion__author"
+                                            style={status === "in-approval" ?
+                                                { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                                                : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500 }
+                                            }
+                                        >{`${status}`}</span> */}
+                                        <span className="discussion__author"
+                                            style={status === "in-approval" ?
+                                                { color: "#A67A46", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                                : { color: "#007E5F", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                            }
+                                        >{`${status}`}</span>
+                                    </>
+                                    : ""
+                                }
+                            </div>
+                            <p className='comment_data'>{comment}</p>
+                            <div className='discussion__actions'>
+
+                                {
+                                    auth.user.user_type === "admin"
+                                        ?
+                                        status === "published"
+                                            ? <button className='action__unpublish' onClick={() => updateCommentStatus(_id, status)}>UnPublish</button>
+                                            : <button className='action__publish' onClick={() => updateCommentStatus(_id, status)}>Publish</button>
+                                        : ""
+                                }
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
+
             })}
-        </div>
+        </div >
     )
 }
 

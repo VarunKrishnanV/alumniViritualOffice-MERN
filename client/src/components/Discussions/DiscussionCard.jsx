@@ -66,7 +66,12 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
                                 {dateFormatter(createdAt)}
                             </span>
                             <FiberManualRecordIcon className="content__separater" />
-                            <span className="discussion__date">{status}</span>
+                            <span className="discussion__author"
+                                style={status === "in-approval" ?
+                                    { color: "#A67A46", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                    : { color: "#007E5F", textTransform: "capitalize", borderRadius: "50px", fontWeight: 600 }
+                                }
+                            >{`${status}`}</span>
                         </div>
                     </div>
                 </Link>

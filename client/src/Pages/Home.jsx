@@ -98,7 +98,7 @@ function Home() {
         }
         );
         const contCount = await res.json();
-        setCommentsCount(contCount.data)
+        setContributionCount(contCount.data)
     }
 
     useEffect(() => {
@@ -106,7 +106,7 @@ function Home() {
         getLatestUsers();
         getDiscussionCount();
         getCommentsCount();
-        // getContributionsCount();
+        getContributionsCount();
     }, [])
 
     return (
