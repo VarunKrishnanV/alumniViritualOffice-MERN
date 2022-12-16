@@ -27,6 +27,13 @@ export const getAll = async (req, res) => {
     res.json({ data: retriveDiscussions });
 };
 
+export const getAllForAdmin = async (req, res) => {
+    const retriveDiscussions = await DiscussionSchema.find().sort({
+        createdAt: -1,
+    });
+    res.json({ data: retriveDiscussions });
+};
+
 export const getLatest = async (req, res) => {
     const retriveDiscussions = await DiscussionSchema.find({
         status: "published",

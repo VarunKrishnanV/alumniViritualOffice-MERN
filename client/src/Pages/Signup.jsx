@@ -26,6 +26,7 @@ import pecImage from "../assets/images/CollegeBanner.jpg"
 import pecLogo from "../assets/images/pec-logo.png"
 // routers
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import "../index.css"
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -57,6 +58,10 @@ export default function SignUp() {
     const [batch, setBatch] = React.useState("");
     const handleBatch = (event) => {
         setBatch(event.target.value);
+    };
+    const [highQualification, setHighQualification] = React.useState("");
+    const handleHighQualification = (event) => {
+        setHighQualification(event.target.value);
     };
 
 
@@ -115,14 +120,14 @@ export default function SignUp() {
                     <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', }} >
                         <img src={pecLogo} alt="" style={{ width: "80px" }} />
                         {/* <h1 style={{ fontSize: "28px", fontWeight: 600, color: "#000", marginTop: "20px" }}>Paavai Engineering College</h1> */}
-                        <h2 style={{ fontSize: "28px", fontWeight: 500, color: "#000", marginTop: "20px" }}>Alumni Virtual Office</h2>
-                        <Typography style={{ fontSize: "24px", fontWeight: 500, color: "gray", marginTop: "4px" }}>
+                        <h2 style={{ fontSize: "28px", fontWeight: 600, color: "#a12137", marginTop: "20px" }}>Alumni Virtual Office</h2>
+                        <Typography style={{ fontSize: "24px", fontWeight: 500, color: "black", marginTop: "4px" }}>
                             Alumni Registration
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
                             <Grid container spacing={2}>
-
+                                <p className='formSubtitle'>Personal Information</p>
                                 {/* fullname */}
                                 <Grid item xs={12} >
                                     <TextField
@@ -160,7 +165,56 @@ export default function SignUp() {
                                     />
                                 </Grid>
 
+                                {/* gender */}
+                                <Grid item xs={12}>
+                                    <FormControl sx={{ width: "100%" }}>
+                                        <InputLabel id="demo-select-small">Gender</InputLabel>
+                                        <Select
+                                            labelId="demo-select-small"
+                                            id="demo-select-small"
+                                            name="gender"
+                                            label="Gender"
+                                            value={gender}
+                                            onChange={handleGender}
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value="male">Male</MenuItem>
+                                            <MenuItem value="female">Female</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
 
+                                {/* date of birth */}
+                                <Grid item xs={12}>
+                                    <FormControl sx={{ width: "100%" }}>
+                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                            <DatePicker
+                                                label="Date of Birth"
+                                                name="dob"
+                                                value={dob}
+                                                onChange={handleDob}
+
+                                                renderInput={(params) => <TextField name="dob" {...params} />}
+                                            />
+                                        </LocalizationProvider>
+                                    </FormControl>
+                                </Grid>
+
+                                {/* password */}
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="new-password"
+                                    />
+                                </Grid>
+                                <p className='formSubtitle'>College Information</p>
                                 {/* identity number */}
                                 <Grid item xs={12}>
                                     <TextField
@@ -280,54 +334,39 @@ export default function SignUp() {
                                     </FormControl>
                                 </Grid>
 
-                                {/* gender */}
+
+
+
+
+                                {/* college */}
                                 <Grid item xs={12}>
                                     <FormControl sx={{ width: "100%" }}>
-                                        <InputLabel id="demo-select-small">Gender</InputLabel>
+                                        <InputLabel id="demo-select-small">Highest Qualification</InputLabel>
                                         <Select
                                             labelId="demo-select-small"
                                             id="demo-select-small"
-                                            name="gender"
-                                            label="Gender"
-                                            value={gender}
-                                            onChange={handleGender}
+                                            label="Highest Qualification"
+                                            autoComplete="high_qualification"
+                                            name="high_qualification"
+                                            value={highQualification}
+                                            onChange={handleHighQualification}
                                         >
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
-                                            <MenuItem value="male">Male</MenuItem>
-                                            <MenuItem value="female">Female</MenuItem>
+                                            <MenuItem value="pec">B.E.,</MenuItem>
+                                            <MenuItem value="pce">M.E.,</MenuItem>
+                                            <MenuItem value="pct">B.Sc.,</MenuItem>
+                                            <MenuItem value="pct">M.Sc.,</MenuItem>
+                                            <MenuItem value="pct">B.Pharm.,</MenuItem>
+                                            <MenuItem value="pct">B.Ed.,</MenuItem>
+                                            <MenuItem value="pct">Diploma</MenuItem>
+                                            <MenuItem value="pct">Ph.D.,</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
 
-                                {/* date of birth */}
-                                <Grid item xs={12}>
-                                    <FormControl sx={{ width: "100%" }}>
-                                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                            <DatePicker
-                                                label="Date of Birth"
-                                                name="dob"
-                                                value={dob}
-                                                onChange={handleDob}
-
-                                                renderInput={(params) => <TextField name="dob" {...params} />}
-                                            />
-                                        </LocalizationProvider>
-                                    </FormControl>
-                                </Grid>
-
-                                {/* highest qualification */}
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="high_qualification"
-                                        label="Highest Qualification"
-                                        name="high_qualification"
-                                        autoComplete="high_qualification"
-                                    />
-                                </Grid>
+                                <p className='formSubtitle'>Current Job Details</p>
 
                                 {/* present_organization */}
                                 <Grid item xs={12}>
@@ -359,7 +398,7 @@ export default function SignUp() {
                                         required
                                         fullWidth
                                         id="current_city"
-                                        label="Current City"
+                                        label="City"
                                         name="current_city"
                                         autoComplete="current_city"
                                     />
@@ -389,18 +428,7 @@ export default function SignUp() {
                                     />
                                 </Grid>
 
-                                {/* password */}
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="new-password"
-                                    />
-                                </Grid>
+
 
                                 <div style={{ display: "none" }}>
                                     <TextField
@@ -421,6 +449,7 @@ export default function SignUp() {
                             </Grid>
 
                             <Button
+                                className='buttonPrimary'
                                 type="submit"
                                 fullWidth
                                 variant="contained"

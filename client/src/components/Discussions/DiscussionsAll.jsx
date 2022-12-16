@@ -30,7 +30,7 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
     const discussions = allDiscussions ? allDiscussions : myDiscussions 
 
     return (
-        <div>
+        <>
             {
                 (
                     discussions.length <= 0
@@ -42,7 +42,7 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
                         })
                 )
             }
-        </div >
+        </ >
     );
 }
 

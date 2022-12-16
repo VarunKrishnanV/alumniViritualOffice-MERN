@@ -10,6 +10,7 @@ DiscussionRoutes.post("/", DiscussionController.create);
 // API - RETRIVE all discussions
 DiscussionRoutes.get("/", DiscussionController.get);
 DiscussionRoutes.get("/all", DiscussionController.getAll);
+DiscussionRoutes.get("/getAllForAdmin", DiscussionController.getAllForAdmin);
 DiscussionRoutes.get("/latest", DiscussionController.getLatest);
 DiscussionRoutes.get("/discuss/:id", DiscussionController.getOne);
 DiscussionRoutes.get("/count", DiscussionController.getUserDiscussionCount);

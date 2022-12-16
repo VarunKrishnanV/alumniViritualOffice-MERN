@@ -42,7 +42,7 @@ export default function Login() {
     const { token, user } = await res.json();
 
     if (res.ok) {
-      Cookies.set("token", token)
+      Cookies.set("token", token, { expires: 1 })
       dispatch(getUser(user))
       navigate("/")
     } else {

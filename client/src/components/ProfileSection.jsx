@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function ProfileSection({ data, getSpecificUser, deactiateUser, approveInApprovalUser }) {
-    const { _id,  fullName, alumni_status, batch, college, createdAt, dept, email, phone, gender, dob, high_qualification, present_organization, designation, current_city, state, country } = data;
+    const { _id, fullName, alumni_status, batch, college, createdAt, dept, email, phone, gender, dob, high_qualification, present_organization, designation, current_city, state, country } = data;
     const dateFormatter = (date) => {
-        return dayjs(date).format('MMM DD, YYYY - H:M:A')
+        return dayjs(date).format('MMM DD, YYYY - h:M:A')
     }
 
     return (
@@ -23,7 +23,7 @@ function ProfileSection({ data, getSpecificUser, deactiateUser, approveInApprova
                 </Grid>
                 <Grid container item xs={12} lg={8.5} md={18.5} spacing={3} >
                     {/* <Grid className='detailsTitle' item xs={12}>Name</Grid> */}
-                    <Grid item xs={12} style={{ fontSize: "40px" }}> {fullName}</Grid>
+                    <Grid item xs={12} style={{ fontSize: "40px" }} className="capitalize"> {fullName}</Grid>
 
                     {/* account details */}
                     <Grid item xs={12} style={{ fontSize: "20px", fontWeight: 600, color: " #a12137" }}> Account Details</Grid>
@@ -41,14 +41,14 @@ function ProfileSection({ data, getSpecificUser, deactiateUser, approveInApprova
                     <Grid className='detailsTitle' item xs={4} md={3}>ID</Grid>
                     <Grid item md={9} xs={8}>{_id}</Grid>
 
-                    <Grid className='detailsTitle' item xs={4} md={3}>Joined on</Grid>
+                    <Grid className='detailsTitle ' item xs={4} md={3}>Joined on</Grid>
                     <Grid item md={9} xs={8}>{dateFormatter(createdAt)} </Grid>
-                    <Grid className='detailsTitle' item xs={4} md={3}>Email </Grid>
+                    <Grid className='detailsTitle ' item xs={4} md={3}>Email </Grid>
                     <Grid item md={9} xs={8}> {email}</Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Phone</Grid>
                     <Grid item md={9} xs={8}>{phone} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Gender</Grid>
-                    <Grid item md={9} xs={8}>{gender} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{gender} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>DOB</Grid>
                     <Grid item md={9} xs={8}>{dob} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Highest Qualification</Grid>
@@ -57,31 +57,27 @@ function ProfileSection({ data, getSpecificUser, deactiateUser, approveInApprova
                     {/* College details */}
                     <Grid item xs={12} style={{ fontSize: "20px", fontWeight: 600, color: " #a12137", marginTop: "30px" }}> College Details</Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>College </Grid>
-                    <Grid item md={9} xs={8}>{college} </Grid>
+                    <Grid item md={9} xs={8} className="uppercase">{college} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Department</Grid>
-                    <Grid item md={9} xs={8}>{dept} </Grid>
+                    <Grid item md={9} xs={8} className="uppercase">{dept} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Batch</Grid>
                     <Grid item md={9} xs={8}>{batch} </Grid>
-
-
-
-
 
 
                     {/* Job details */}
                     <Grid item xs={12} style={{ fontSize: "20px", fontWeight: 600, color: " #a12137", marginTop: "30px" }}> Job Details</Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Present Organization</Grid>
-                    <Grid item md={9} xs={8}>{present_organization} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{present_organization} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Designation</Grid>
-                    <Grid item md={9} xs={8}>{designation} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{designation} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Current City</Grid>
-                    <Grid item md={9} xs={8}>{current_city} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{current_city} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>State</Grid>
-                    <Grid item md={9} xs={8}>{state} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{state} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Current City</Grid>
-                    <Grid item md={9} xs={8}>{current_city} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{current_city} </Grid>
                     <Grid className='detailsTitle' item xs={4} md={3}>Country</Grid>
-                    <Grid item md={9} xs={8}>{country} </Grid>
+                    <Grid item md={9} xs={8} className="capitalize">{country} </Grid>
 
                 </Grid>
             </Grid>

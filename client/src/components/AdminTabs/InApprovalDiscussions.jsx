@@ -15,6 +15,19 @@ const RenderDiscussion = (row) => {
   )
 };
 
+const RenderStatus = (row) => {
+  return (
+    <span className="discussion__author"
+      style={row.row.status === "in-approval" ?
+        { color: "#A67A46", textTransform: "capitalize", background: "#FCF5E5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500, fontSize: "12px" }
+        : { color: "#007E5F", textTransform: "capitalize", background: "#C7EFE5", padding: "0px 8px", borderRadius: "50px", fontWeight: 500, fontSize: "12px" }
+      }
+    >
+      {`${row.row.status}`}
+    </span>
+  )
+}
+
 function InApprovalDiscussions() {
 
   const token = Cookies.get("token")
@@ -44,7 +57,7 @@ function InApprovalDiscussions() {
     { field: 'dis_by', headerName: 'Discussion By', minWidth: 120 },
     { field: 'dis_title', headerName: 'Title', minWidth: 400 },
     { field: 'dis_description', headerName: 'Description', minWidth: 50, flex: 1 },
-    { field: 'status', headerName: 'Status', minWidth: 60 },
+    { field: 'status', headerName: 'Status', minWidth: 60, renderCell: RenderStatus },
     { field: 'createdAt', headerName: 'Created on', minWidth: 100 },
     { field: 'View', headerName: 'View', minWidth: 130, renderCell: RenderDiscussion },
   ];

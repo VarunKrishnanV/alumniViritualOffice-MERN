@@ -7,6 +7,7 @@ import { logout } from "./store/auth.js"
 
 // CSS
 import "./App.css";
+import "./index.css"
 
 // material UI
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,6 +33,9 @@ import iconContributions from "./assets/icons/iconContributions.svg";
 import iconLogout from "./assets/icons/iconLogout.svg";
 import appLogo from "./assets/images/logo.svg"
 import iconNotifications from './assets/icons/iconNotifications.svg';
+import Avatar from '@mui/material/Avatar';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { width } from '@mui/system';
 
 
 const drawerWidth = 240;
@@ -70,7 +74,7 @@ function Dashboard(props) {
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
             { key: "6", label: "Notifications", route: "/notifications", icon: iconNotifications },
         ]
-    } 
+    }
     // sidebar fo alumni - users who were approved by admin
     else if (auth.user.user_type === "alumni" && auth.user.alumni_status === "active") {
         navItems = [
@@ -79,7 +83,7 @@ function Dashboard(props) {
             { key: "4", label: "Discussions", route: "/discussions", icon: iconDiscussions },
             { key: "5", label: "Contributions", route: "/contributions", icon: iconContributions },
         ]
-    } 
+    }
     // sidebar for guest - users who were not approved by admin
     else {
         navItems = [
@@ -134,9 +138,27 @@ function Dashboard(props) {
                     <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} sx={{ mr: 2, display: { sm: 'none' } }} >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Alumni Virutal Office
-                    </Typography>
+                    <div className='navTopBar'>
+                        <Typography variant="h6" noWrap component="div">
+                            Alumni Virutal Office
+                        </Typography>
+                        <Link to="/profile">
+                            <div className="navUserDetails">
+                                <Avatar style={{ background: "#a02136", fontSize: "12px", width: "30px", height: "30px" }} />
+                                <div className="user__detials" sx={{ mr: 2, display: { sm: 'none' } }}>
+                                    <p className="user__name" style={{ fontWeight: 600, fontSize: "16px" }}>
+                                        {`${auth.user.fullName}`}
+                                    </p>
+
+                                    {/* <div className='user__meta' style={{ textTransform: "uppercase", fontSize: "14px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600, color: "#A6A6A6" }}>
+                                    {auth.user.dept}
+                                    <FiberManualRecordIcon className="content__separater" />
+                                    {auth.user.college}
+                                </div> */}
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </Toolbar>
             </AppBar>
             <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }} aria-label="mailbox folders" >

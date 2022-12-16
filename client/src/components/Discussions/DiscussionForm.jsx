@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 const token = Cookies.get("token")
 
-function DiscussionForm({ loadDiscussions, handleClose }) {
+function DiscussionForm({ loadDiscussions, handleClose, getAllDiscussionsAdmin }) {
     const auth = useSelector((state) => state.auth)
 
     // ------------------ Form Handiling -------------------
@@ -48,6 +48,7 @@ function DiscussionForm({ loadDiscussions, handleClose }) {
         if (res.ok) {
             loadDiscussions();
             handleClose();
+            getAllDiscussionsAdmin()
         }
     }
 

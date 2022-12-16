@@ -34,6 +34,13 @@
     font-weight: 600;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
 .loadingContainer {
     height: 100vh;
     display: flex;
@@ -187,4 +194,58 @@
     color: white;
     overflow: none;
     border-radius: 0px 50px 50px 0;
+}
+
+.css-mhc70k-MuiGrid-root > .MuiGrid-item {
+    padding-left: 0 !important;
+}
+
+.css-mhc70k-MuiGrid-root {
+    width: 100% !important;
+    margin: auto !important;
+}
+
+.formSubtitle {
+    font-weight: 600;
+    margin-top: 30px;
+    color: #a02136;
+}
+
+.buttonPrimary {
+    background-color: #a02136 !important;
+}
+
+.buttonPrimary:hover {
+    background-color: #600817 !important;
+}
+.navTopBar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.navUserDetails {
+    /* background-color: royalblue; */
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.navUserDetails .user__detials {
+}
+.navUserDetails .user__name {
+}
+.navUserDetails .user__meta {
+    color: white !important;
+}
+.navUserDetails .content__separater {
+}
+
+.isntContainer {
+    margin-bottom: 24px;
+}
+.instTitle {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+.instDetails {
 }

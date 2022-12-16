@@ -147,7 +147,11 @@ function Home() {
                     {/* ------------------recent discussions---------------- */}
 
                     <Grid item xs={12} lg={8}>
-                        <div>
+                        <div style={{
+                            boxShadow: "rgb(224 224 224) 0px 0px 10px",
+                            padding: "20px 20px 0 20px",
+                            borderRadius: "5px"
+                        }}>
                             <h1 style={{ fontSize: "24px", fontWeight: 600, color: "#a02136", marginBottom: "2px" }}>Recent Discussions</h1>
                             <DiscussionsLatest latestDiscussions={latestDiscussions} loadLatestDiscussions={loadLatestDiscussions} setLatestDiscussions={setLatestDiscussions} />
                         </div>
@@ -156,32 +160,38 @@ function Home() {
 
                     {/* --------------------- People recently joined ------------------- */}
                     <Grid item xs={12} lg={4}>
-                        <h1 style={{ fontSize: "24px", fontWeight: 600, color: "#a02136" }}>Alumni Recently Joined</h1>
-                        <List item sx={{ width: '100%', gap: "30px" }}>
+                        <div style={{
+                            boxShadow: "rgb(224 224 224) 0px 0px 10px",
+                            padding: "20px 20px 0 20px",
+                            borderRadius: "5px"
+                        }}>
+                            <h1 style={{ fontSize: "24px", fontWeight: 600, color: "#a02136" }}>Alumni Recently Joined</h1>
+                            <List item sx={{ width: '100%', gap: "30px" }}>
 
-                            {
-                                latestUsers.map((user, index) => {
-                                    if (index <= 5) {
-                                        return (
-                                            <ListItem key={user._id} style={{ gap: "10px", padding: "10px 0", borderBottom: "1px solid #EFEFEF" }}>
-                                                <Avatar style={{ background: "#a02136", fontSize: "14px" }} />
-                                                <div className="user__detials">
-                                                    <p className="user__name" style={{ fontWeight: 600, fontSize: "16px" }}>
-                                                        {`${user.fullName}`}
-                                                    </p>
+                                {
+                                    latestUsers.map((user, index) => {
+                                        if (index <= 5) {
+                                            return (
+                                                <ListItem key={user._id} style={{ gap: "10px", padding: "10px 0", borderBottom: "1px solid #EFEFEF" }}>
+                                                    <Avatar style={{ background: "#a02136", fontSize: "14px" }} />
+                                                    <div className="user__detials">
+                                                        <p className="user__name" style={{ fontWeight: 600, fontSize: "16px" }}>
+                                                            {`${user.fullName}`}
+                                                        </p>
 
-                                                    <div className='user__meta' style={{ textTransform: "uppercase", fontSize: "14px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600, color: "#A6A6A6" }}>
-                                                        {user.dept}
-                                                        <FiberManualRecordIcon className="content__separater" />
-                                                        {user.college}
+                                                        <div className='user__meta' style={{ textTransform: "uppercase", fontSize: "14px", display: "flex", alignItems: "center", gap: "4px", fontWeight: 600, color: "#A6A6A6" }}>
+                                                            {user.dept}
+                                                            <FiberManualRecordIcon className="content__separater" />
+                                                            {user.college}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </ListItem>
-                                        );
-                                    }
-                                })
-                            }
-                        </List>
+                                                </ListItem>
+                                            );
+                                        }
+                                    })
+                                }
+                            </List>
+                        </div>
                     </Grid>
                 </Grid>
             </Grid>

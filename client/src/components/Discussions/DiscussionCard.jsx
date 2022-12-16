@@ -53,9 +53,9 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
                     <div className="discussion">
                         <div className="discussion__details">
                             <h2 className="discussion__title">{dis_title}</h2>
-                            <p className="discussion__description">
+                            <span className="discussion__description">
                                 {dis_description}
-                            </p>
+                            </span>
                         </div>
                         <div className="discussion__meta">
                             <span className="discussion__author">
