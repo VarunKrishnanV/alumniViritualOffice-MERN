@@ -3,7 +3,7 @@ import "./App.css";
 import { useDispatch } from 'react-redux'
 import { getUser } from "./store/auth.js"
 import Cookies from "js-cookie";
-import Dashboard from "./dashboard";
+import Dashboard from "./dashboard.jsx";
 import { useEffect, useState } from "react"
 import { redirect } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
