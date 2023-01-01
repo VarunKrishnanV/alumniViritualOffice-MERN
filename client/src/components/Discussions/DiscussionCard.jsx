@@ -2,7 +2,6 @@ import * as React from "react";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
-
 // material icons
 import.meta.env.VITE_API_URL;
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
@@ -12,14 +11,14 @@ import { Link } from "react-router-dom";
 export default function DiscussionCard({ data, deleteDiscussion }) {
     let [paavaian, setPaavaian] = useState("");
     let [isLoading, setIsLoading] = useState(false);
-    // const [paavaian, setPaavaian] = useState([])
+    const [getCommentCount, setGetCommentCount] = useState(0);
     const dateFormatter = (date) => {
         return dayjs(date).format("MMM DD, YYYY");
     };
 
-    const { _id, dis_title, dis_description, createdAt, alumni_id, status } =
-        data;
+    const { _id, dis_title, dis_description, createdAt, alumni_id, status } = data;
 
+    // ----- API - get discussion counts -----
     async function getSpecificUser() {
         const res = await fetch(
             `${import.meta.env.VITE_API_URL}/allusers/paavaian/${alumni_id}`,
@@ -35,8 +34,21 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
         setPaavaian(user.user.fullName);
     }
 
+    // ----- API - get discussion counts -----
+    async function getCommentsCount(id) {
+        const commentCount = await fetch(`${import.meta.env.VITE_API_URL}/comments/discussion/count/${id}`, {
+            headers: {
+                Authorization: `Bearer ${Cookies.get("token")}`
+            }
+        });
+        const { data } = await commentCount.json();
+        setGetCommentCount(data)
+    }
+
+
     useEffect(() => {
         getSpecificUser();
+        getCommentsCount(_id)
     }, []);
 
     return (
@@ -64,6 +76,10 @@ export default function DiscussionCard({ data, deleteDiscussion }) {
                             <FiberManualRecordIcon className="content__separater" />
                             <span className="discussion__date">
                                 {dateFormatter(createdAt)}
+                            </span>
+                            <FiberManualRecordIcon className="content__separater" />
+                            <span className="discussion__date">
+                                {getCommentCount} Comments
                             </span>
                             <FiberManualRecordIcon className="content__separater" />
                             <span className="discussion__author"

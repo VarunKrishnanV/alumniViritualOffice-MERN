@@ -7,6 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import HelpIcon from '@mui/icons-material/Help';
 import IconButton from '@mui/material/IconButton';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import "../../index.css"
 
 export default function DiscussionInstructions() {
@@ -35,8 +36,8 @@ export default function DiscussionInstructions() {
     return (
         <div>
 
-            <IconButton variant="outlined" onClick={handleClickOpen('paper')} style={{ width: "20px" }}>
-                <HelpIcon />
+            <IconButton variant="outlined" onClick={handleClickOpen('paper')} style={{ marginLeft: "10px", width: "20px" }}>
+                <ContactSupportIcon />
             </IconButton>
 
             <Dialog

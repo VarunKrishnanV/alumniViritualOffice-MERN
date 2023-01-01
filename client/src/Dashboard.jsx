@@ -139,9 +139,9 @@ function Dashboard(props) {
                         <MenuIcon />
                     </IconButton>
                     <div className='navTopBar'>
-                        <Typography variant="h6" noWrap component="div">
+                        <p variant="h6" noWrap component="div">
                             Alumni Virutal Office
-                        </Typography>
+                        </p>
                         <Link to="/profile">
                             <div className="navUserDetails">
                                 <Avatar style={{ background: "#a02136", fontSize: "12px", width: "30px", height: "30px" }} />

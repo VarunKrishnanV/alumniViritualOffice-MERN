@@ -32,7 +32,7 @@ export default function MyDiscussionTab() {
             <Grid className="AllDiscussionInner" container spacing={5}>
                 <Grid item xs={12} md={8}>
                     <Box style={{ boxShadow: "none", padding: "0" }}>
-                        <DiscussionsAll myDiscussions={myDiscussions} loadDiscussions={loadDiscussions} />
+                        <DiscussionsAll  myDiscussions={myDiscussions} loadDiscussions={loadDiscussions} />
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={4}>

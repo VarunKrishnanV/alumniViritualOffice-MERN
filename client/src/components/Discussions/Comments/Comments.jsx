@@ -12,19 +12,6 @@ function Comments({ comments, getComments }) {
     }
     const auth = useSelector((state) => state.auth)
 
-    // const [commentor, setCommentor] = useState("")
-
-    // async function fetchCommentor(id) {
-    //     const res = await fetch(
-    //         `${import.meta.env.VITE_API_URL}/allusers/paavaian/${id}`, {
-    //         headers: {
-    //             Authorization: `Bearer ${Cookies.get("token")}`,
-    //         },
-    //     });
-    //     const user = await res.json();
-    //     const commentor = (`${user.lastName}`)
-    //     return commentor;
-    // }
 
     // --------------------- updating discussion status -------------------
 
@@ -68,9 +55,7 @@ function Comments({ comments, getComments }) {
                         return (
                             <div key={_id} className='comment_container'>
                                 <div className="discussion__meta" >
-
                                     <span className="discussion__author">{commented_by === auth.user._id ? "You" : commented_by_name}</span>
-
                                     <FiberManualRecordIcon className="content__separater" />
                                     <span className="discussion__date">{dateFormatter(createdAt)}</span>
                                     {auth.user.user_type === "admin" || commented_by === auth.user._id

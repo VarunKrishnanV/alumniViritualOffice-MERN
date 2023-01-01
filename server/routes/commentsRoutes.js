@@ -9,6 +9,10 @@ CommentsRoutes.post("/", CommentsController.create);
 // API - RETRIVE all discussions
 CommentsRoutes.get("/", CommentsController.get);
 CommentsRoutes.get("/discussion/:id", CommentsController.getSpecific);
+CommentsRoutes.get(
+    "/discussion/count/:id",
+    CommentsController.getCountForDiscussion
+);
 CommentsRoutes.get("/count", CommentsController.getUserCommentsCount);
 CommentsRoutes.patch("/comment/status/:id", CommentsController.updateStatus);
 // DiscussionRoutes.get("/", DiscussionController.get);

@@ -27,14 +27,14 @@ function DiscussionsAll({ allDiscussions, loadDiscussions, myDiscussions }) {
         }
     }
 
-    const discussions = allDiscussions ? allDiscussions : myDiscussions 
+    const discussions = allDiscussions ? allDiscussions : myDiscussions
 
     return (
         <>
             {
                 (
                     discussions.length <= 0
-                        ? "No Discussions Found"
+                        ? <p>No Discussions Found</p>
                         : discussions.map((discussion) => {
                             return (
                                 <DiscussionCard key={discussion._id} data={discussion} deleteDiscussion={deleteDiscussion} />

@@ -36,7 +36,7 @@ function TabPanel(props) {
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
-                    <Typography>{children}</Typography>
+                    <p>{children}</p>
                 </Box>
             )}
         </div>
@@ -106,7 +106,10 @@ export default function Discussions() {
 
         const discussAll = await res.json();
         setAllUsersDiscussions(discussAll.data);
+
     }
+
+
     // function calls
     useEffect(() => {
         loadDiscussions()

@@ -20,7 +20,7 @@ export const get = async (req, res) => {
     res.json({ data: retriveComments });
 };
 
-// nostes for specific discussion
+// comments for specific discussion
 export const getSpecific = async (req, res) => {
     console.log(req.params.id);
     const retriveComments = await CommentsSchema.find({
@@ -29,6 +29,16 @@ export const getSpecific = async (req, res) => {
     res.json({ data: retriveComments });
 };
 
+// comments count for specific discussion
+export const getCountForDiscussion = async (req, res) => {
+    const commentCounts = await CommentsSchema.find({
+        discussion_id: req.params.id,
+        status: "published",
+    }).count();
+    res.json({ data: commentCounts });
+};
+
+// total comments count for specific user
 export const getUserCommentsCount = async (req, res) => {
     const commentsCount = await CommentsSchema.find({
         commented_by: req.user._id,

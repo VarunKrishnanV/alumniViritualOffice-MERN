@@ -28,5 +28,3 @@ export const updateUserStatus = async (req, res) => {
     userData.save();
     res.json({ user: userData });
 };
-
-

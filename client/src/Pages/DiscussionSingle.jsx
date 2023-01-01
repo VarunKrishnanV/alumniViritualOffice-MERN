@@ -24,7 +24,15 @@ function DiscussionSingle() {
   const { _id: discussion_id, alumni_id: discussion__author_id, createdAt, dis_description, dis_likes, dis_title, status: discussion_status } = discussion
   const { fullName, _id: author_id } = author
 
+  // let CommentsPublished = 0;
 
+  // if (comments !== 0) {
+  //   comments.map(comment => {
+  //     if (comment.status == "published") {
+  //       CommentsPublished = CommentsPublished+1;
+  //     }
+  //   })
+  // }
 
   const dateFormatter = (date) => {
     return dayjs(date).format('MMM DD, YYYY h:M:A')
@@ -76,6 +84,9 @@ function DiscussionSingle() {
     const resComments = await res.json();
     setComments(resComments.data);
   }
+
+
+
 
 
   // --------------------- updating discussion status -------------------
@@ -177,7 +188,7 @@ function DiscussionSingle() {
                 // show "no comments" if there is no comments else show comments
                 (comments.length !== 0 ?
                   <>
-                    <Comments comments={comments} getComments = {getComments} />
+                    <Comments comments={comments} getComments={getComments} />
                     <CommentsForm discussionId={discussionId} getComments={getComments} />
                   </>
                   :

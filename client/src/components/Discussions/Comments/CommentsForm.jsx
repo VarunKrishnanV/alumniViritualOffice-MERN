@@ -1,27 +1,37 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import "../../../index.css";
 
 export default function Comments({ discussionId, getComments }) {
-
     const [comment, setComment] = useState("")
 
     const auth = useSelector((state) => state.auth)
-    // const { _id: userId } = auth.user;
-    const { _id, fullName, alumni_status, batch, college, createdAt, dept, email, phone } = auth.user;
+    const { fullName } = auth.user;
 
     let commentDetails = {
         discussion_id: discussionId,
-        // commented_by: userId,
         commented_by_name: fullName,
         comment: comment,
         status: "in-approval",
+    }
 
+    function removeDisabled(e) {
+        e.target.classList.remove("disabled");
+    }
+
+    function addDisabled(e) {
+        e.target.classList.add("disabled");
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
+        if (!comment) {
+            alert("required")
+            return
+        }
+        e.target.classList.add("disabled")
         const res = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
             method: "POST",
             body: JSON.stringify(commentDetails),
@@ -31,11 +41,11 @@ export default function Comments({ discussionId, getComments }) {
             },
         });
         if (res.ok) {
-            console.log(await res.json());
             getComments()
         }
+        setComment("")
+        e.target.classList.remove("disabled")
     }
-
     function handleChange(e) {
         setComment(e.target.value)
     }
@@ -43,10 +53,11 @@ export default function Comments({ discussionId, getComments }) {
     return (
         <>
             <form action="" className='comment_form'>
-                <input type="text" onChange={handleChange} className='comment_input' placeholder='Enter your comment' />
-                <button style={{ background: "white" }} value="submit" onClick={handleSubmit} type='submit' className='comment_button'>Comment</button>
+                <input type="text" onChange={handleChange} value={comment} className='comment_input' placeholder='Enter your comment' />
+                <button value="submit" onClick={handleSubmit} type='submit' className={
+                    comment ? "comment_button " : "comment_button disabled"
+                }>Comment</button>
             </form>
-
         </>
     );
 }
