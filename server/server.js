@@ -11,7 +11,7 @@ import routes from "./routes/index.js";
 dotenv.config();
 // initializing the app
 const app = express();
-const PORT = 5050;
+const PORT = process.env.PORT || 3030;
 
 // Cross-Origin Resource Sharing
 app.use(cors());

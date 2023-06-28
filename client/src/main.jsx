@@ -68,7 +68,7 @@ const router = createBrowserRouter([
                     </CheckAuth>),
             },
             {
-                path: "/discussions",
+                paxth: "/discussions",
                 element: (
                     <CheckAuth>
                         <Discussions />
